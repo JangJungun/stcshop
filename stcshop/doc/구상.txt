@@ -56,11 +56,15 @@ Eclipse - JSP - Egov- jQeury - JSP - MyBatis - tomcat - maven - mariaDB
 주문(상세)페이지
 주문이력페이지
 마이페이지
-문의페이지(user <-> admin)
+고객센터 문의페이지(user <-> admin)
 관리자 페이지
 
 계절, 당일 날씨, 사용자 정보, 추가적인 조건입력에 따른 옷 추천(Image화) 시스템 -> 추천상품 페이지
-image input -> 관련. 유사 상품 추천
+또는 사용자가 image input -> 관련. 유사 상품 추천
+=문제는 api에서 받아온 image를 어떻게 상품과 연관을 지을거냐.
+
+kakaotalk 문의? 챗봇?
+FAQ 구조부터 GPT api 이용 자연어 문의까지 처리? 
 
 -프로세스(회원가입 로그인은 생략.)
 고객 상품 주문
