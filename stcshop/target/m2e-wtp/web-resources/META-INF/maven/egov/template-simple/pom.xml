@@ -70,6 +70,11 @@
 			<artifactId>org.egovframe.rte.fdl.string</artifactId>
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
+		<dependency>
+            <groupId>org.egovframe.rte</groupId>
+            <artifactId>org.egovframe.rte.fdl.security</artifactId>
+            <version>${org.egovframe.rte.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -224,7 +229,7 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/target</directory>
-        <finalName>sht_webapp</finalName>
+        <finalName>stc_shop_app</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
