@@ -12,7 +12,7 @@
 		
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:/egovframework/mapper/let/**/*.xml</value>
+				<value>classpath:/egovframework/mapper/stc/**/*.xml</value>
 			</list>
 		</property>
 	</bean>

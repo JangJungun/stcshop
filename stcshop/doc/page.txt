@@ -32,9 +32,10 @@ DB 설계
 가입일시 JOIN_DT
 수정일시 MDFCN_DT
 탈퇴일시 WHDWL_DT
+그룹아이디 GROUP_ID -- 권한
 (포린키 프로바이더 코드 레퍼런스 프로바이더코드테이블)
 }
-
+권한테이블{}
 
 성별 코드 테이블{
 CODE_ID
@@ -71,6 +72,7 @@ privider code 테이블 TC_SNS_TYPE_CD{
 
 //script로 추천상품을 사용자가 클릭 했을 때 insert
 상품 조회 이력 테이블 TH_GDS_INQ_HST{
+GDS_HST_ID
 유저식별자 USR_ID
 클릭한 상품명 INQ_GDS_NM
 상품 1분류 GDS_CLSF1
@@ -81,25 +83,27 @@ privider code 테이블 TC_SNS_TYPE_CD{
 
 }
 
-보고서 테이블 TN_RPTP{
-보고서 ID RPTP_ID
+보고서 테이블 TN_RPT{
+보고서 ID RPT_ID
 생성일시 CRT_DT
-보고서 내용 RPTP_CN
-보고서 구분 코드 RPTP_SPRTN_CD
+보고서 내용 RPT_CN
+보고서 구분 코드 RPT_SPRTN_CD
 }
 
 보고서 구분코드RPTP_SPRTN_CD{}
 
+COMTNAUTHORGROUPINFO{} 권한테이블
 
+IDS{} 시퀀스테이블
 --------
 1. 분야별, 검색어별 선택
 2. 기간, 기기, 성별, 연령 선택
 3. 조회 -> 결과 그래프 생성
 4. 결과에 따른 추천상품 크롤
 --------
-상품 분류를 db에 저장할때 분류 1 분류 2 분류 3 이렇게 해야하나?
-계층구조의 분류구조
 
+
+COMVNUSERMASTER 같은 VIEW 를 만들어서 SECURITY QUERY의 FROM절에 활용
 
 
 

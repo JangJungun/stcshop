@@ -297,7 +297,7 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <directory>${basedir}/target</directory>
-        <finalName>stc</finalName>
+        <finalName>stcshop</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

@@ -11,8 +11,8 @@
         <property name="validationConfigLocations">
             <list>
                 <!-- 경량환경 템플릿 밸리데이터 설정 -->
-	            <value>classpath:/egovframework/validator/validator-rules-let.xml</value>
-	            <value>classpath:/egovframework/validator/let/**/*.xml</value>
+	            <value>classpath:/egovframework/validator/validator-rules-stc.xml</value>
+	            <value>classpath:/egovframework/validator/stc/**/*.xml</value>
             </list>
         </property>
     </bean>
