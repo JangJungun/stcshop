@@ -6,7 +6,7 @@
 
     <!-- 홈페이지의 주요기능인 협업(게시판, 일정관리)기능 작동과정에서 Exception 발생시 후처리를 위한 AOP설정  -->
 	<aop:config>
-		<aop:pointcut id="serviceMethod" expression="execution(* egovframework.let..impl.*Impl.*(..)) or execution(* egovframework.com..impl.*Impl.*(..))" />
+		<aop:pointcut id="serviceMethod" expression="execution(* kr.co.stcreative.trend..impl.*Impl.*(..)) or execution(* kr.co.stcreative.cmm..impl.*Impl.*(..))" />
 
 		<aop:aspect ref="exceptionTransfer">
 			<aop:after-throwing throwing="exception" pointcut-ref="serviceMethod" method="transfer" />
@@ -58,7 +58,7 @@
 	</bean>
 	
 	<!-- 템플릿 내에서 Exception 발생시 실제 처리를 위한 클래스 설정-->
-    <bean id="egovHandler" class="egovframework.com.cmm.EgovComExcepHndlr" />
-    <bean id="otherHandler" class="egovframework.com.cmm.EgovComOthersExcepHndlr" />	
+    <bean id="egovHandler" class="kr.co.stcreative.cmm.EgovComExcepHndlr" />
+    <bean id="otherHandler" class="kr.co.stcreative.cmm.EgovComOthersExcepHndlr" />	
 	
 </beans>

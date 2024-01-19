@@ -1,4 +1,4 @@
-package egovframework.com.cmm;
+package kr.co.stcreative.cmm;
 
 import java.util.Locale;
 

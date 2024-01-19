@@ -12,7 +12,7 @@
 	</context:component-scan>
 	
 	<!-- 메시지소스빈 설정 -->
-    <bean id="egovMessageSource" class="egovframework.com.cmm.EgovMessageSource">
+    <bean id="egovMessageSource" class="kr.co.stcreative.cmm.EgovMessageSource">
         <property name="reloadableResourceBundleMessageSource">
             <ref bean="messageSource" />
         </property> 
@@ -58,10 +58,10 @@
 	<!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의  AntPathMatcher 를 활용하도록 설정 -->
 	<bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
     <!-- Exception 발생시 후처리용 별도작업을 위해 실행환경의  DefaultTraceHandler 를 활용하도록 설정 org.egovframe.rte.fdl.cmmn.trace.handler.DefaultTraceHandler -->
-    <bean id="defaultTraceHandler" class="egovframework.com.cmm.EgovComTraceHandler" />
+    <bean id="defaultTraceHandler" class="kr.co.stcreative.cmm.EgovComTraceHandler" />
 	
     <!-- For Pagination Tag 설정-->
-    <bean id="imageRenderer" class="egovframework.com.cmm.ImagePaginationRenderer"/>
+    <bean id="imageRenderer" class="kr.co.stcreative.cmm.ImagePaginationRenderer"/>
     <bean id="paginationManager" class="org.egovframe.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
         <property name="rendererType">
             <map>
@@ -81,7 +81,7 @@
     <!-- custom multi file resolver -->
     <!-- 확장자 제한 : globals.properties > Globals.fileUpload.Extensions로 설정 -->
     <!-- 
-    <bean id="local.MultiCommonsMultipartResolver" class="egovframework.com.cmm.web.EgovMultipartResolver">
+    <bean id="local.MultiCommonsMultipartResolver" class="kr.co.stcreative.cmm.web.EgovMultipartResolver">
         <property name="maxUploadSize" value="100000000" />
         <property name="maxInMemorySize" value="100000000" />
     </bean>

@@ -41,7 +41,7 @@
             <mvc:mapping path="/uat/uia/*.do"/>
             <mvc:exclude-mapping path="/uat/uia/actionLogin.do"/>
             <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do"/>
-		    <bean class="egovframework.com.cmm.interceptor.AuthenticInterceptor" />
+		    <bean class="kr.co.stcreative.cmm.interceptor.AuthenticInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
  -->

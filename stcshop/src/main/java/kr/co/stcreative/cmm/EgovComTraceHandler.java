@@ -1,4 +1,4 @@
-package egovframework.com.cmm;
+package kr.co.stcreative.cmm;
 
 import org.egovframe.rte.fdl.cmmn.trace.handler.TraceHandler;
 import org.slf4j.Logger;
