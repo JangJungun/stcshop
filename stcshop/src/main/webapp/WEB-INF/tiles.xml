@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "C:/ide/basemeta_multi_xml/wiseda/src/main/webapp/tiles-config_3_0.dtd"> -->
+<!-- <!DOCTYPE tiles-definitions PUBLIC
+     "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">  -->
+<tiles-definitions>
+
+    <definition name="base-layout" template="/WEB-INF/jsp/tiles/stcLayout.jsp">
+        <put-attribute name="title" value="STC Trend" />
+        <put-attribute name="include" value="" />
+        <put-attribute name="header" value="/WEB-INF/jsp/tiles/stcHeader.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/tiles/stcFooter.jsp" />
+        <put-attribute name="left" value="/WEB-INF/jsp/tiles/stcLeft.jsp" />
+    </definition>
+    
+
+    <definition name="*/*" extends="base-layout">
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+    </definition>
+    
+
+	
+</tiles-definitions>

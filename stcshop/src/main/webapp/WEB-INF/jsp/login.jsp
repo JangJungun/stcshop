@@ -81,7 +81,7 @@ $(document).ready(function(){
     </form>
   </div>
   <div class="form-container sign-in-container">
-    <form action="#">
+    <form action="/main/inquirytrend.do">
       <h1>로그인</h1>
       <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

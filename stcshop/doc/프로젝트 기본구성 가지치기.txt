@@ -15,6 +15,7 @@ implements Serializable : 객체 직렬화. wiseda 보면서 loginvo등에 적�
 -context-scheduler : 스프링 스케쥴러 설정
 -context-whitelist : jsp에서 c:import url. c:url value 등 사용되는 url 등록 해두기, /EgovPageLink.do 컨트롤러 매핑 만들기.
 
-
+--
+1. jsp들 부터
 
 
