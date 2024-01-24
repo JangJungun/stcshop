@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
 public class AdminController {
 
 	@GetMapping("/admin.do")
@@ -14,7 +13,7 @@ public class AdminController {
 		
 		model.addAttribute("currentMenu","admin");
 		
-		return "/admin/AdminPage";
+		return "admin/AdminPage";
 	}
 	
 }

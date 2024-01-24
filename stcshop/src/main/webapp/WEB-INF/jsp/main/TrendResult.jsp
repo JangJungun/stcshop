@@ -15,17 +15,18 @@
   since    : 1.0.0
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
 <!-- chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <title>조회 결과</title>
 </head>
 <body>
-sdfsd
+
 <div class="container mt-3">
   <div class="row mb-4">
     <div class="col">
@@ -36,7 +37,7 @@ sdfsd
   <!-- 차트 들어갈 칸 -->
   <div class="row mb-5">
     <div class="col">
-      <canvas id="myChart"></canvas>
+      <canvas id="trendChart" width="300" height="250"></canvas>
     </div>
   </div>
 
@@ -61,43 +62,37 @@ sdfsd
 
 
 <script>
-  // Chart.js를 사용한 차트 초기화
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    // 차트의 형태와 데이터 설정
-    type: 'bar', // 예시로 바 차트를 넣었습니다. 필요에 따라 변경하세요.
+// JSON 문자열을 JavaScript 객체로 파싱합니다.
+var trendData = JSON.parse('<c:out value="${trendData}" escapeXml="false" />');
+
+// 차트 데이터 준비
+var labels = trendData.results[0].data.map(function(item) {
+    return item.period;
+});
+var datasetData = trendData.results[0].data.map(function(item) {
+    return item.ratio;
+});
+
+// 차트 구성
+var ctx = document.getElementById('trendChart').getContext('2d');
+var title = trendData.results[0].title;
+var trendChart = new Chart(ctx, {
+    type: 'line',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // 레이블 예시입니다.
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3], // 데이터 예시입니다.
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)', // 각 바의 배경색입니다.
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)', // 각 바의 경계선 색입니다.
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
+        labels: labels,
+        datasets: [{
+            label: title+' 검색 비율 (%)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            data: datasetData,
+            fill: false,
+        }]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+        responsive: true,
+        maintainAspectRatio: false
     }
-  });
+});
 </script>
 </body>
 </html>
