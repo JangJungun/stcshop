@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.stcreative.trend.main.service.ApiDatalabTrendService;
 import kr.co.stcreative.trend.main.service.TrendInquiryVO;
+import kr.co.stcreative.trend.main.service.TrendCatService;
 
 @Controller
 @RequestMapping("/main")
@@ -22,18 +23,22 @@ public class TrendMainController {
 	//Api Service
 	private ApiDatalabTrendService apiDatalabTrendService;
 	
+
+	
 	@Autowired
 	public TrendMainController(ApiDatalabTrendService apiDatalabTrendService) {
+		
 		this.apiDatalabTrendService=apiDatalabTrendService;
 	}
 	
-	
+	//login 페이지
 	@GetMapping("/mainPage.do")
 	public String goMainPage() {
 		
 		return "login";
 	}
 	
+	//마이페이지
 	@GetMapping("/info.do")
 	public String goInfoPage(Model model) {
 		
@@ -42,12 +47,6 @@ public class TrendMainController {
 		return"main/TrendInfo";
 	}
 	
-	//헤더 테스트용
-	@GetMapping("/test.do")
-	public String test() {
-		
-		return "cmm/header";
-	}
 	//조회페이지 
 	@GetMapping("/inquirytrend.do")
 	public String goInquiryTrend(Model model) {
@@ -58,6 +57,7 @@ public class TrendMainController {
 		return "main/InquiryByTrend";
 	}
 	
+	//트렌드 분석 요청 후 결과페이지
 	@PostMapping("/inquiry.do")
 	public String inq(TrendInquiryVO trendInquiryVO, Model model) {
 		
@@ -85,12 +85,7 @@ public class TrendMainController {
 	
 	
 	
-	//결과페이지 
-	@GetMapping("/trendresult.do")
-	public String test3() {
-		
-		return "main/TrendResult";
-	}
+	
 	
 	
 }

@@ -48,6 +48,25 @@
 	    p:viewClass="org.springframework.web.servlet.view.JstlView"
 	    p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
 
+	<!-- message converter -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>*/*;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	
+
+
     <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
 <!--     
     <mvc:interceptors>
@@ -68,4 +87,5 @@
     
     <mvc:annotation-driven/>
  -->
+ 
  </beans>

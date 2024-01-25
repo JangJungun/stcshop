@@ -37,115 +37,63 @@
             <div class="form-group col-sm-3">
 			  <select class="form-control form-select" id="category1" required>
 			    <option value="" selected disabled hidden>1분류</option>
-			    <option value="패션의류" data-param="50000000">패션의류</option>
-			    <option value="패션잡화" data-param="50000001">패션잡화</option>
-			    <option value="화장품/미용" data-param="50000002">화장품/미용</option>
-			    <option value="디지털/가전" data-param="50000003">디지털/가전</option>
-			    <option value="가구/인테리어" data-param="50000004">가구/인테리어</option>
-			    <option value="출산/육아" data-param="50000005">출산/육아</option>
-			    <option value="식품" data-param="50000006">식품</option>
-			    <option value="스포츠/레저" data-param="50000007">스포츠/레저</option>
-			    <option value="생활/건강" data-param="50000008">생활/건강</option>
-			    <option value="여가/생활편의" data-param="50000009">여가/생활편의</option>
-			    <option value="면세점" data-param="50000010">면세점</option>
-			    
 			  </select>
-			  
 			
 			</div>
 			<div class="form-group col-sm-3">
 			  
 			  <select class="form-control form-select" id="category2" style="display: none;">
 			    <option value="" selected disabled hidden>2분류</option>
-			    <option value="sample2">sample2</option>
-			    <option value="sample3">sample3</option>
-			    <!-- 기타 옵션 -->
 			  </select>
 			</div>
 			<div class="form-group col-sm-3">
 			  
 			  <select class="form-control form-select" id="category3" style="display: none;">
 			    <option value="" selected disabled hidden>3분류</option>
-			    <option value="sample3">sample3</option>
-			    <option value="sample4">sample4</option>
-			    <!-- 기타 옵션 -->
 			  </select>
 			</div>
-			<div class="form-group col-sm-3">
+ 			<div class="form-group col-sm-3">
 			  
-			  <select class="form-control form-select" id="category4" style="display: none;">
-			    <option value="" selected disabled hidden>4분류</option>
-			    <option value="sample4">sample4</option>
-			    <option value="sample5">sample5</option>
-			    <!-- 기타 옵션 -->
-			  </select>
-			</div>
+
+			</div> 
 			<%-- /분류 한세트 --%>
 			
-			<%-- 분류 한세트 --%>
-            <!-- <div class="form-group2 col-sm-3">
-			  <select class="form-control form-select" id="category1-2" required>
-			    <option value="" selected disabled hidden>1분류</option>
-			    <option value="패션의류" data-param="50000000">패션의류</option>
-			    <option value="패션잡화" data-param="50000001">패션잡화</option>
-			    <option value="화장품/미용" data-param="50000002">화장품/미용</option>
-			    <option value="디지털/가전" data-param="50000003">디지털/가전</option>
-			    <option value="가구/인테리어" data-param="50000004">가구/인테리어</option>
-			    <option value="출산/육아" data-param="50000005">출산/육아</option>
-			    <option value="식품" data-param="50000006">식품</option>
-			    <option value="스포츠/레저" data-param="50000007">스포츠/레저</option>
-			    <option value="생활/건강" data-param="50000008">생활/건강</option>
-			    <option value="여가/생활편의" data-param="50000009">여가/생활편의</option>
-			    <option value="면세점" data-param="50000010">면세점</option>
-			    
-			  </select>
-			  
-			
-			</div>
-			<div class="form-group2 col-sm-3">
-			  
-			  <select class="form-control form-select" id="category2-2" style="display: none;">
-			    <option value="" selected disabled hidden>2분류</option>
-			    <option value="sample2">sample2</option>
-			    <option value="sample3">sample3</option>
-			    기타 옵션
-			  </select>
-			</div>
-			<div class="form-group2 col-sm-3">
-			  
-			  <select class="form-control form-select" id="category3-2" style="display: none;">
-			    <option value="" selected disabled hidden>3분류</option>
-			    <option value="sample3">sample3</option>
-			    <option value="sample4">sample4</option>
-			    기타 옵션
-			  </select>
-			</div>
-			<div class="form-group2 col-sm-3">
-			  
-			  <select class="form-control form-select" id="category4-2" style="display: none;">
-			    <option value="" selected disabled hidden>4분류</option>
-			    <option value="sample4">sample4</option>
-			    <option value="sample5">sample5</option>
-			    기타 옵션
-			  </select>
-			</div> -->
-			<%-- /분류 한세트 --%>
-			
-			
+
 			<input type="hidden" id="categoryName" name="categoryName">
 			<input type="hidden" id="categoryParam" name="categoryParam">
+			<input type="hidden" id="categoryName2" name="categoryName2">
+			<input type="hidden" id="categoryParam2" name="categoryParam2">
+			<input type="hidden" id="categoryName3" name="categoryName3">
+			<input type="hidden" id="categoryParam3" name="categoryParam3">
 			
 			<button type="button" class="w-25 btn btn-secondary ms-2" id="addCategory">추가</button>
 <%-- --%>
+		<hr />	
+			<strong class="title me-2">검색어</strong>
+				<div class="set_keyword_wrap">
+					<div class="set_keyword2">
+					<!-- 검색어 추가 버튼 클릭 시 생겨야 할 field
+						<div class="cell keyword">
+							<span>니트</span> <a href="#">삭제</a>
+						</div>
+					 -->
+						<div class="cell input">
+							<input type="text" id="item_keyword" placeholder="비교할 검색어 추가">
+						</div>
+					</div>
+				</div>
+
+				<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 입력</button>
+				
 
         <!-- <label for="state" class="form-label">기간</label> -->
         <strong class="title me-2">기간</strong>
 		<div class="row">
 			<div class="col-md-2">
               <select class="form-select" id="timeUnit" name="timeUnit" required>
-                <option value="date" selected>일간</option>
+                <option value="date" >일간</option>
                 <option value="week" selected>주간</option>
-                <option value="month" selected>월간</option>
+                <option value="month" >월간</option>
               </select>
               
               <div class="invalid-feedback">
@@ -241,37 +189,37 @@
   <div class="set_col set_target_chk d-flex">
     <!-- 전체 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_0">
+      <input type="checkbox" class="form-check-input age" id="age_0">
       <label class="form-check-label" for="age_0">전체</label>
     </div>
     <!-- 10대 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_1" value="10">
+      <input type="checkbox" class="form-check-input age" id="age_1" value="10">
       <label class="form-check-label" for="age_1">10대</label>
     </div>
     <!-- 20대 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_2" value="20">
+      <input type="checkbox" class="form-check-input age" id="age_2" value="20">
       <label class="form-check-label" for="age_2">20대</label>
     </div>
     <!-- 30대 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_3" value="30">
+      <input type="checkbox" class="form-check-input age" id="age_3" value="30">
       <label class="form-check-label" for="age_3">30대</label>
     </div>
     <!-- 40대 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_4" value="40">
+      <input type="checkbox" class="form-check-input age" id="age_4" value="40">
       <label class="form-check-label" for="age_4">40대</label>
     </div>
     <!-- 50대 체크박스 -->
     <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input-age" id="age_5" value="50">
+      <input type="checkbox" class="form-check-input age" id="age_5" value="50">
       <label class="form-check-label" for="age_5">50대</label>
     </div>
     <!-- 60대 체크박스 -->
     <div class="form-check">
-      <input type="checkbox" class="form-check-input-age" id="age_6" value="60">
+      <input type="checkbox" class="form-check-input age" id="age_6" value="60">
       <label class="form-check-label" for="age_6">60대 이상</label>
     </div>
   </div>
@@ -297,15 +245,26 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var categoryCount = 1;
+	var ApiKindCode=1;
+	//분류1 option값 설정
+	setCategoryOneOptions('category1');
+	
+	//분류 추가버튼 이벤트
 	$('#addCategory').click(function() {
-		
-	    // 새로운 분류 세트 번호를 증가시킵니다.
-	    categoryCount++;
+		var categoryCount = 1;
+	
+	    // 새로운 분류 세트 번호를 결정
+	    if ($('.form-group3').length > 0 && $('.form-group2').length == 0) {
+	        categoryCount = 2;
+	    } else if ($('.form-group2').length > 0 && $('.form-group3').length == 0) {
+	        categoryCount = 3;
+	    } else if ($('.form-group2').length == 0 && $('.form-group3').length == 0) {
+	        categoryCount = categoryCount + 1;
+	    }
 	    
-	    // 새로운 분류 세트의 HTML 문자열을 생성합니다.
+	    // 새로운 분류 세트의 HTML 문자열을 생성
 	    var newSetHtml = '';
-	    for (var i = 1; i <= 4; i++) {
+	    for (var i = 1; i <= 3; i++) {
 	      newSetHtml += '<div class="form-group' + categoryCount + ' col-sm-3">';
 	      if(i==1){
 	      	newSetHtml += '<select class="form-control form-select" id="category' + i + '-' + categoryCount + '" >';
@@ -317,45 +276,41 @@ $(document).ready(function(){
 	      newSetHtml += '</div>';
 	    }
 
+	    newSetHtml += '<div class="form-group' + categoryCount + ' col-sm-3"><button class="btn btn-secondary ms-2 delete-button" id="delete'+categoryCount+'">삭제</button></div>'
 	    
 	    
-	    
-	    // 새로운 분류 세트를 DOM에 추가합니다.
+	    // 새로운 분류 세트를 DOM에 추가
 	    $(this).before(newSetHtml);
 	    
-	    var optionsForCategory1 = [
-	    	  { text: "패션의류", value: "50000000" },
-	    	  // ... 기타 옵션들 ...
-	    	];
-	    	var optionsForCategory2 = [
-	    	  // ... 2분류에 맞는 옵션들 ...
-	    	];
-	    	var optionsForCategory3 = [
-	    	  // ... 3분류에 맞는 옵션들 ...
-	    	];
-	    	var optionsForCategory4 = [
-	    	  // ... 4분류에 맞는 옵션들 ...
-	    	];
-	    
-	 	// 새로 추가된 각 분류 <select>에 옵션을 추가합니다.
-	    addOptionsToSelect('category1-' + categoryCount, optionsForCategory1);
-	    addOptionsToSelect('category2-' + categoryCount, optionsForCategory2);
-	    addOptionsToSelect('category3-' + categoryCount, optionsForCategory3);
-	    addOptionsToSelect('category4-' + categoryCount, optionsForCategory4);
+	 	// 새로 추가된 분류 1에 대해 option 설정
+	    setCategoryOneOptions('category1-' + categoryCount);
 	    
 	    
-		// 버튼 비활성화
-	    if (categoryCount >= 3) {
-		      $("#addCategory").attr("disabled",true);
-		      return;
-		  }
+	 	// 추가된 삭제 버튼에 이벤트 핸들러를 연결
+	    $('#delete' + categoryCount).click(function() {
+	        var deleteId = $(this).attr('id');
+	        var deleteNumber = deleteId.replace('delete', '');
+	        $('.form-group' + deleteNumber).remove(); // 현재 버튼에 매칭되는 .form-group 요소를 삭제
+	        $('#categoryName' + deleteNumber).val(''); // 해당 hidden input 값을 초기화.
+	        $('#categoryParam' + deleteNumber).val(''); // 해당 hidden input 값을 초기화.
+	        categoryCount--;
+	        //버튼 활성화
+	        if ($('.delete-button').length < 2) {
+	            $("#addCategory").attr("disabled", false);
+	        }
+	    });
 		
+	 	// 버튼 비활성화
+	    if ($('.delete-button').length >= 2) {
+        	$("#addCategory").attr("disabled", true);
+    	}
+	 	
 	  });
 	  
 	
 	
 	
-	 //1분류 ~ 4분류 숨기기/보이기
+	 //1분류 ~ 3분류 숨기기/보이기
 	  $(document).on('change', '.form-select', function() {
 	        // 현재 select의 다음 모든 field-group을 찾아서 숨기고, select를 default value로 설정
 	        var allNextGroups = $(this).closest('.form-group').nextAll('.form-group');
@@ -383,50 +338,6 @@ $(document).ready(function(){
 	        
 	    });
 	
-	 
-	 //category1~4 중 마지막에 선택값을 categoryName으로 설정
-	 //각 category에 저장된 param값을 categoryParam으로 설정
-	 var lastSelectedCategoryValue = '';
-	  $('.form-control.form-select').change(function() {
-		    var selectedValue = $(this).val();
-		    if(selectedValue) {
-		      lastSelectedCategoryValue = selectedValue;
-		    }
-		    
-			// 현재 선택된 옵션의 data-param 값을 dataParam에 저장
-		    var dataParam = $(this).find('option:selected').data('param');
-		 	// 선택된 옵션이 유효값이면 hidden input에 data-param 값을 할당.
-		    if(dataParam) {
-		      $('#categoryParam').val(dataParam);
-		    }
-			
-		    console.log(lastSelectedCategoryValue);
-		    console.log(dataParam);
-		    
-		  });
-	 //submit시 input hidden으로 설정된 categoryName에 마지막 선택값을 넣고 전송
-	  $('#inquiryForm').submit(function(e) {
-		    // 마지막으로 선택된 카테고리 값을 확인하고 설정합니다.
-		    if(lastSelectedCategoryValue) {
-		      $('#categoryName').val(lastSelectedCategoryValue);
-		    } else {
-		      // 예외처리
-		      e.preventDefault();
-		      alert('카테고리를 선택해주세요.');
-		    }
-		    
-		 	// hidden input에 저장된 data-param 값이 있는지 확인
-		    var categoryParam = $('#categoryParam').val();
-		    if (!categoryParam) {
-		        // 예외처리
-		        event.preventDefault();
-		        alert('카테고리를 선택해주세요.');
-		      }
-		    
-		    
-		  
-	  });
-	 
 	 
 	// 라디오 버튼 변경 시 호출될 함수를 정의합니다.
 	  function handleRadioChange() {
@@ -579,16 +490,16 @@ function updateGenderHiddenInput() {
 $('#age_0').change(function() {
   var isChecked = $(this).is(':checked');
   // '전체'가 체크되면 모든 연령 체크박스를 체크하고, 아니면 모두 해제
-  $('.form-check-input-age').not('#age_0').prop('checked', isChecked);
+  $('.age').not('#age_0').prop('checked', isChecked);
   updateAgesHiddenInput();
 });
 
 // 개별연령 체크박스 상태 변경 시 전체 체크박스 조정
-$('.form-check-input-age').not('#age_0').change(function() {
+$('.age').not('#age_0').change(function() {
   
   // 모든 개별 체크박스가 체크되었는지 확인
-  var allChecked = $('.form-check-input-age').not('#age_0').length ===
-	  $('.form-check-input-age:checked').not('#age_0').length;
+  var allChecked = $('.age').not('#age_0').length ===
+	  $('.age:checked').not('#age_0').length;
   
   // 전체 체크박스 상태를 업데이트
   $('#age_0').prop('checked', allChecked);
@@ -600,7 +511,7 @@ $('.form-check-input-age').not('#age_0').change(function() {
 // 연령 input값 변경
 function updateAgesHiddenInput() {
   // 체크된 연령 체크박스의 값을 배열로 가져옵니다.
-  var checkedAges = $('.form-check-input-age:checked').not('#age_0').map(function() {
+  var checkedAges = $('.age:checked').not('#age_0').map(function() {
     return this.value;
   }).get(); // .get()으로 jQuery 객체를 일반 배열로 변환합니다.
 
@@ -612,11 +523,159 @@ function updateAgesHiddenInput() {
     $('#ages').val('');
   }
 
-
-//  console.log($('#ages').val());
-
-
 }
+
+function setCategoryOneOptions(id) {
+    $.ajax({
+        url: '/getCategoryOne.do',  
+        type: 'GET',
+        success: function(data) {
+            var $category1 = $('#' + id);
+            $.each(data, function(index, item) {
+                $category1.append('<option value="' + item.gdsClsfOneNm + '" data-param="' + item.catId + '">' + item.gdsClsfOneNm + '</option>');
+            });
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax 요청 실패');
+            console.log('textStatus: ' + textStatus);
+            console.log('errorThrown: ' + errorThrown);
+        }
+    });
+}
+
+//#category1의 선택이 변경될 때 category2의 option값 가져오기
+$('#category1').change(function() {
+    var selectedValue = $(this).val();
+    $.ajax({
+        url: '/getCategoryTwo.do',
+        type: 'GET',
+        data: { gdsClsfOneNm: selectedValue },
+        success: function(data) {
+            var $category2 = $('#category2');
+            $category2.find('.dynamic-option').remove(); // 동적으로 추가된 option만 제거
+            $.each(data, function(index, item) {
+                $category2.append('<option class="dynamic-option" value="' + item.gdsClsfTwoNm + '" data-param="' + item.catId + '">' + item.gdsClsfTwoNm + '</option>');
+            });
+            $category2.show();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax 요청 실패');
+            console.log('textStatus: ' + textStatus);
+            console.log('errorThrown: ' + errorThrown);
+        }
+    });
+});
+//#category2의 선택이 변경될 때 category3의 option값 가져오기
+$('#category2').change(function() {
+    var selectedValue = $(this).val();
+    var gdsClsfOneNm = $('#category1').val();
+    $.ajax({
+        url: '/getCategoryThr.do',
+        type: 'GET',
+        data: { gdsClsfOneNm: gdsClsfOneNm, gdsClsfTwoNm: selectedValue },
+        success: function(data) {
+            var $category3 = $('#category3');
+            $category3.find('.dynamic-option').remove(); // 동적으로 추가된 option만 제거
+            $.each(data, function(index, item) {
+                $category3.append('<option class="dynamic-option" value="' + item.gdsClsfThrNm + '" data-param="' + item.catId + '">' + item.gdsClsfThrNm + '</option>');
+            });
+            $category3.show();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax 요청 실패');
+            console.log('textStatus: ' + textStatus);
+            console.log('errorThrown: ' + errorThrown);
+        }
+    });
+});
+
+//"추가" 버튼을 클릭했을때, 생기는 카테고리의 option값 가져오기
+$(document).on('change', '[id^=category1-]', function() {
+    var selectedValue = $(this).val();
+    var categoryNumber = $(this).attr('id').split('-')[1];
+    var $category2 = $('#category2-' + categoryNumber);
+    $.ajax({
+        url: '/getCategoryTwo.do',
+        type: 'GET',
+        data: { gdsClsfOneNm: selectedValue },
+        success: function(data) {
+            $category2.find('.dynamic-option').remove(); 
+            $.each(data, function(index, item) {
+                $category2.append('<option class="dynamic-option" value="' + item.gdsClsfTwoNm + '" data-param="' + item.catId + '">' + item.gdsClsfTwoNm + '</option>');
+            });
+            $category2.show();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax 요청 실패');
+            console.log('textStatus: ' + textStatus);
+            console.log('errorThrown: ' + errorThrown);
+        }
+    });
+});
+
+//"추가" 버튼을 클릭했을때, 생기는 카테고리의 option값 가져오기
+$(document).on('change', '[id^=category2-]', function() {
+    var selectedValue = $(this).val();
+    var categoryNumber = $(this).attr('id').split('-')[1];
+    var gdsClsfOneNm = $('#category1-' + categoryNumber).val();
+    var $category3 = $('#category3-' + categoryNumber);
+    $.ajax({
+        url: '/getCategoryThr.do',
+        type: 'GET',
+        data: { gdsClsfOneNm: gdsClsfOneNm, gdsClsfTwoNm: selectedValue },
+        success: function(data) {
+            $category3.find('.dynamic-option').remove(); 
+            $.each(data, function(index, item) {
+                $category3.append('<option class="dynamic-option" value="' + item.gdsClsfThrNm + '" data-param="' + item.catId + '">' + item.gdsClsfThrNm + '</option>');
+            });
+            $category3.show();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax 요청 실패');
+            console.log('textStatus: ' + textStatus);
+            console.log('errorThrown: ' + errorThrown);
+        }
+    });
+});
+
+//분류1~3 중 마지막에 선택값을 categoryName으로 설정
+//각 category에 저장된 param값을 categoryParam으로 설정
+$(document).on('change', '.form-control.form-select', function() {
+    var selectedValue = $(this).val();
+    var dataParam = $(this).find('option:selected').data('param');
+//    var categoryNumber = $(this).is('#category1') ? '' : $(this).attr('id').split('-')[1];
+
+    if($(this).is('#category1') || $(this).is('#category2') || $(this).is('#category3')){
+    	var categoryNumber = '';
+    }else{
+    	var categoryNumber = $(this).attr('id').split('-')[1];
+    }
+    
+    if(selectedValue) {
+        $('#categoryName' + categoryNumber).val(selectedValue);
+    }
+    if(dataParam) {
+        $('#categoryParam' + categoryNumber).val(dataParam);
+    }
+
+    console.log('categoryName' + categoryNumber + ': ' + selectedValue);
+    console.log('categoryParam' + categoryNumber + ': ' + dataParam);
+});
+
+$('#inquiryForm').submit(function(e) {
+    // 각 hidden 필드에 값이 설정되었는지 확인합니다.
+    for(var i = 1; i <= categoryCount; i++) {
+        var categoryNameValue = $('#categoryName' + i).val();
+        var categoryParamValue = $('#categoryParam' + i).val();
+
+        if(!categoryNameValue || !categoryParamValue) {
+            // 예외처리
+            e.preventDefault();
+            alert('모든 카테고리를 선택해주세요.');
+            return;
+        }
+    }
+});
 
 
 

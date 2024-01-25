@@ -33,21 +33,39 @@ public class ApiDatalabTrendService {
     }
 	
     private static String makeRequestBody(TrendInquiryVO inquiryData) {
-        // StringBuilder 사용
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         sb.append("\"startDate\":\"").append(inquiryData.getStartDate()).append("\",");
         sb.append("\"endDate\":\"").append(inquiryData.getEndDate()).append("\",");
         sb.append("\"timeUnit\":\"").append(inquiryData.getTimeUnit()).append("\",");
-        sb.append("\"category\":[{\"name\":\"").append(inquiryData.getCategoryName()).append("\",");
-        sb.append("\"param\":[\"").append(inquiryData.getCategoryParam()).append("\"]}],");
-        sb.append("\"device\":\"").append(inquiryData.getDevice()).append("\",");
+        sb.append("\"category\":[");
+
+        // 첫 번째 category 추가
+        sb.append("{\"name\":\"").append(inquiryData.getCategoryName()).append("\",");
+        sb.append("\"param\":[\"").append(inquiryData.getCategoryParam()).append("\"]}");
+
+        // 두 번째 category 추가 (값이 있을 경우)
+        if(inquiryData.getCategoryName2() != null && !inquiryData.getCategoryName2().isEmpty() && 
+           inquiryData.getCategoryParam2() != null && !inquiryData.getCategoryParam2().isEmpty()) {
+            sb.append(",{\"name\":\"").append(inquiryData.getCategoryName2()).append("\",");
+            sb.append("\"param\":[\"").append(inquiryData.getCategoryParam2()).append("\"]}");
+        }
+
+        // 세 번째 category 추가 (값이 있을 경우)
+        if(inquiryData.getCategoryName3() != null && !inquiryData.getCategoryName3().isEmpty() && 
+           inquiryData.getCategoryParam3() != null && !inquiryData.getCategoryParam3().isEmpty()) {
+            sb.append(",{\"name\":\"").append(inquiryData.getCategoryName3()).append("\",");
+            sb.append("\"param\":[\"").append(inquiryData.getCategoryParam3()).append("\"]}");
+        }
+
+        sb.append("],\"device\":\"").append(inquiryData.getDevice()).append("\",");
         sb.append("\"ages\":").append(arrayToJson(inquiryData.getAges())).append(",");
         sb.append("\"gender\":\"").append(inquiryData.getGender()).append("\"");
         sb.append("}");
 
         return sb.toString();
     }
+
 
     // String 배열을 JSON 배열 형식의 문자열로 변환합니다.
     private static String arrayToJson(String[] array) {

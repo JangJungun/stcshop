@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.stcreative.trend.main.mapper.TrendCatMapper">
+	<resultMap id="TrendCatList" type="kr.co.stcreative.trend.main.service.TrendCatVO">
+
+		<result property="catId" column="CAT_ID"/>
+		<result property="gdsClsfOneNm" column="GDS_CLSF_ONE_NM"/>
+		<result property="gdsClsfTwoNm" column="GDS_CLSF_TWO_NM"/>
+		<result property="gdsClsfThrNm" column="GDS_CLSF_THR_NM"/>
+
+	</resultMap>
+	
+
+	<!-- 카테고리 option값을 조회 -->
+ 	<select id="selectOptionsOne" resultMap="TrendCatList">
+ 		SELECT CAT_ID, GDS_CLSF_ONE_NM 
+			FROM TREND_CAT 
+			WHERE GDS_CLSF_TWO_NM = ""
+ 	</select>
+ 	
+ 	<select id="selectOptionsTwo" parameterType="kr.co.stcreative.trend.main.service.TrendCatVO" resultMap="TrendCatList">
+ 		SELECT CAT_ID, GDS_CLSF_TWO_NM 
+			FROM TREND_CAT 
+			WHERE GDS_CLSF_ONE_NM = #{gdsClsfOneNm}
+			AND GDS_CLSF_TWO_NM != ""
+			AND GDS_CLSF_THR_NM ="";
+ 	</select>
+ 	
+ 	<select id="selectOptionsThr" parameterType="kr.co.stcreative.trend.main.service.TrendCatVO" resultMap="TrendCatList">
+ 		SELECT CAT_ID, GDS_CLSF_THR_NM
+			FROM TREND_CAT
+			WHERE GDS_CLSF_ONE_NM = #{gdsClsfOneNm}
+			AND GDS_CLSF_TWO_NM = #{gdsClsfTwoNm}
+			AND GDS_CLSF_THR_NM != "";
+ 	</select>
+ 	
+	
+
+</mapper>

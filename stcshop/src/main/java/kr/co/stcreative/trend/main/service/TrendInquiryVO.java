@@ -20,7 +20,15 @@ public class TrendInquiryVO {
 	private String gender;
 	
 	private String[] ages;
-
+	
+	
+	
+	//비교 분류정보 담기
+	private String categoryName2;
+	private String categoryName3;
+	private String categoryParam2;
+	private String categoryParam3;
+	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -87,12 +95,48 @@ public class TrendInquiryVO {
         }
 	}
 
+	public String getCategoryName2() {
+		return categoryName2;
+	}
+
+	public void setCategoryName2(String categoryName2) {
+		this.categoryName2 = categoryName2;
+	}
+
+	public String getCategoryName3() {
+		return categoryName3;
+	}
+
+	public void setCategoryName3(String categoryName3) {
+		this.categoryName3 = categoryName3;
+	}
+
+	public String getCategoryParam2() {
+		return categoryParam2;
+	}
+
+	public void setCategoryParam2(String categoryParam2) {
+		this.categoryParam2 = categoryParam2;
+	}
+
+	public String getCategoryParam3() {
+		return categoryParam3;
+	}
+
+	public void setCategoryParam3(String categoryParam3) {
+		this.categoryParam3 = categoryParam3;
+	}
+
 	@Override
 	public String toString() {
-		return "TerndInquiryVO [startDate=" + startDate + ", endDate=" + endDate + ", timeUnit=" + timeUnit
+		return "TrendInquiryVO [startDate=" + startDate + ", endDate=" + endDate + ", timeUnit=" + timeUnit
 				+ ", categoryName=" + categoryName + ", categoryParam=" + categoryParam + ", device=" + device
-				+ ", gender=" + gender + ", ages=" + Arrays.toString(ages) + "]";
+				+ ", gender=" + gender + ", ages=" + Arrays.toString(ages) + ", categoryName2=" + categoryName2
+				+ ", categoryName3=" + categoryName3 + ", categoryParam2=" + categoryParam2 + ", categoryParam3="
+				+ categoryParam3 + "]";
 	}
+
+	
 
 	
 	

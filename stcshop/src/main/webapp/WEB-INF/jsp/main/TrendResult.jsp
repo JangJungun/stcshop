@@ -23,6 +23,9 @@
 
 <!-- chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
+
+
 <title>조회 결과</title>
 </head>
 <body>
@@ -62,37 +65,80 @@
 
 
 <script>
-// JSON 문자열을 JavaScript 객체로 파싱합니다.
+//JSON 문자열을 JavaScript 객체로 파싱
 var trendData = JSON.parse('<c:out value="${trendData}" escapeXml="false" />');
 
 // 차트 데이터 준비
 var labels = trendData.results[0].data.map(function(item) {
     return item.period;
 });
-var datasetData = trendData.results[0].data.map(function(item) {
-    return item.ratio;
-});
 
 // 차트 구성
 var ctx = document.getElementById('trendChart').getContext('2d');
-var title = trendData.results[0].title;
+
+var datasets = trendData.results.map(function(result, index) {
+    var datasetData = result.data.map(function(item) {
+        return item.ratio;
+    });
+
+    // 색상 배열
+    var colors = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'];
+
+    return {
+        label: result.title + ' 검색 비율 (%)',
+        data: datasetData,
+        fill: false,
+        borderColor: colors[index % colors.length],  
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        pointBorderColor: colors[index % colors.length],
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: colors[index % colors.length],
+        pointHoverBorderColor: colors[index % colors.length],
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+    };
+});
+
 var trendChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: labels,
-        datasets: [{
-            label: title+' 검색 비율 (%)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            data: datasetData,
-            fill: false,
-        }]
+        datasets: datasets
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            x: {
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '날짜'
+                }
+            },
+            y: {
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: '검색 비율 (%)'
+                }
+            }
+        }
     }
 });
+
+
 </script>
 </body>
 </html>
