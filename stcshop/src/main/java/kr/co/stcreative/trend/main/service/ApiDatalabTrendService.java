@@ -12,17 +12,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ApiDatalabTrendService {
-
-	private String clientId="G46e73ZWWp21bTuOsKEx";// 애플리케이션 클라이언트 아이디
-    private String clientSecret = "9SaFeyiPNj"; // 애플리케이션 클라이언트 시크릿
+	
+	@Value("${naver.client.id}") 
+    private String clientId;
+	@Value("${naver.client.secret}") 
+    private String clientSecret;
+	
     private String apiUrl= "https://openapi.naver.com/v1/datalab/shopping/categories";
 
 
     public String getTrendData(TrendInquiryVO inquiryData) {
+    	System.out.println("in ApiDatalabTrendService");
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);

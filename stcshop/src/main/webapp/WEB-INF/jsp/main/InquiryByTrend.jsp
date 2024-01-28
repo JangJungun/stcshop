@@ -35,20 +35,20 @@
 			<strong class="title">분류</strong>
 			<%-- 분류 한세트 --%>
             <div class="form-group col-sm-3">
-			  <select class="form-control form-select" id="category1" required>
+			  <select class="form-control form-select" id="category1" name="category1" required>
 			    <option value="" selected disabled hidden>1분류</option>
 			  </select>
 			
 			</div>
 			<div class="form-group col-sm-3">
 			  
-			  <select class="form-control form-select" id="category2" style="display: none;">
+			  <select class="form-control form-select" id="category2" name="category2" style="display: none;">
 			    <option value="" selected disabled hidden>2분류</option>
 			  </select>
 			</div>
 			<div class="form-group col-sm-3">
 			  
-			  <select class="form-control form-select" id="category3" style="display: none;">
+			  <select class="form-control form-select" id="category3" name="category3" style="display: none;">
 			    <option value="" selected disabled hidden>3분류</option>
 			  </select>
 			</div>
@@ -69,21 +69,23 @@
 			<button type="button" class="w-25 btn btn-secondary ms-2" id="addCategory">추가</button>
 <%-- --%>
 		<hr />	
-			<strong class="title me-2">검색어</strong>
-				<div class="set_keyword_wrap">
+			<input type="hidden" id="keyword" name="keyword" value=""/>
+				<div class="set_keyword_wrap" style="display: none;">
+				  <strong class="title me-2">검색어</strong>
 					<div class="set_keyword2">
-					<!-- 검색어 추가 버튼 클릭 시 생겨야 할 field
+					<!-- 추가 버튼 클릭 시 생겨야 할 field
 						<div class="cell keyword">
 							<span>니트</span> <a href="#">삭제</a>
 						</div>
 					 -->
 						<div class="cell input">
 							<input type="text" id="item_keyword" placeholder="비교할 검색어 추가">
+							<button type="button" class="btn btn-outline-secondary" id="addNewKwrd">추가</button>
 						</div>
 					</div>
 				</div>
-
-				<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 입력</button>
+				
+				<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 추가</button>
 				
 
         <!-- <label for="state" class="form-label">기간</label> -->
@@ -103,7 +105,7 @@
             
 			<div class="col-md-5" id="">
 			  <!-- 1개월 라디오 버튼 -->
-			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod0" autocomplete="off">
+			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod0" autocomplete="off" required>
 			  <label class="btn btn-outline-primary" for="setPeriod0">1개월</label>
 			
 			  <!-- 3개월 라디오 버튼 -->
@@ -124,14 +126,14 @@
 			    <div class="col">
 			      <div class="input-group input-group-sm">
 
-			        <input type="date" class="form-control" id="startDate" name="startDate">
+			        <input type="date" class="form-control" id="startDate" name="startDate" required="required">
 			      </div>
 			    </div>
 			    ~
 			    <div class="col">
 			      <div class="input-group input-group-sm">
 
-			        <input type="date" class="form-control" id="endDate" name="endDate">
+			        <input type="date" class="form-control" id="endDate" name="endDate" required="required">
 			      </div>
 			    </div>
 			  </div>
@@ -245,7 +247,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var ApiKindCode=1;
+	//var ApiKindCode=1;
 	//분류1 option값 설정
 	setCategoryOneOptions('category1');
 	
@@ -267,9 +269,9 @@ $(document).ready(function(){
 	    for (var i = 1; i <= 3; i++) {
 	      newSetHtml += '<div class="form-group' + categoryCount + ' col-sm-3">';
 	      if(i==1){
-	      	newSetHtml += '<select class="form-control form-select" id="category' + i + '-' + categoryCount + '" >';
+	      	newSetHtml += '<select class="form-control form-select" id="category' + i + '-' + categoryCount + '" name="category' + i + '_' + categoryCount + '" >';
 	      }else{
-	      	newSetHtml += '<select class="form-control form-select" id="category' + i + '-' + categoryCount + '" style="display: none;">';
+	      	newSetHtml += '<select class="form-control form-select" id="category' + i + '-' + categoryCount + '" name="category' + i + '_' + categoryCount + '" style="display: none;">';
 	      }
 	      newSetHtml += '<option value="" selected disabled hidden>' + i + '분류</option>';
 	      newSetHtml += '</select>';
@@ -676,6 +678,66 @@ $('#inquiryForm').submit(function(e) {
         }
     }
 });
+
+
+
+//"검색어 추가" 버튼 클릭이벤트
+  $('#addKeyword').click(function(){
+    var $this = $(this);
+    $('.set_keyword_wrap').toggle();
+
+    if ($('.set_keyword_wrap').is(':visible')) {
+      $this.text('검색어 취소');
+   	  // form-group2와 form-group3이 있다면 제거
+      $('.form-group2, .form-group3').remove();
+      // "분류 추가" 버튼 숨기기
+      $('#addCategory').hide();
+    } else {
+      $this.text('검색어 추가');
+      $('.cell.keyword').remove();
+      $('#item_keyword').val('');
+      //추가버튼 다시 활성화
+      if($('.cell.keyword').length < 5){
+        $('#addNewKwrd').attr("disabled", false);
+      }
+   	  // "분류 추가" 버튼 다시 보이기
+      $('#addCategory').show().attr('disabled', false);
+    }
+    updateKeywords();
+  });
+
+//검색어 추가 > 추가 버튼 클릭이벤트
+$('#addNewKwrd').click(function(){
+    if($('.cell.keyword').length < 5){
+      var new_keyword = $('#item_keyword').val();
+      if(new_keyword != ''){
+        var new_keyword_div = '<div class="cell keyword"><span>'+ new_keyword +'</span> <a href="#" class="deleteKeyword">삭제</a></div>';
+        $('.set_keyword2').append(new_keyword_div);
+        $('#item_keyword').val('');
+      }
+    }
+    if($('.cell.keyword').length >= 5){
+      //추가버튼 비활성화
+      $('#addNewKwrd').attr("disabled", true);
+    }
+    updateKeywords();
+  });
+
+  $(document).on('click', '.deleteKeyword', function(){
+    $(this).parent().remove();
+    if($('.cell.keyword').length < 5){
+      //추가버튼 활성화
+      $('#addNewKwrd').attr("disabled", false);
+    }
+    updateKeywords();
+  });
+  
+function updateKeywords() {
+    var keywords = $('.cell.keyword span').map(function(){
+      return $(this).text();
+    }).get();
+    $('#keyword').val(keywords.join(','));
+ }
 
 
 

@@ -25,46 +25,77 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
 
+<style>
 
+
+.product-item p {
+    font-size: 12px;
+    overflow: hidden; 
+    margin: 5px 0;
+}
+</style>
 <title>조회 결과</title>
 </head>
 <body>
-
 <div class="container mt-3">
+  <h2>조회 결과</h2>
+  <hr />
+  
   <div class="row mb-4">
     <div class="col">
       <button onclick="history.back()" class="btn btn-secondary">뒤로가기</button>
     </div>
   </div>
 
-  <!-- 차트 들어갈 칸 -->
+  <!-- 차트와 추천 상품 목록 칸 -->
   <div class="row mb-5">
-    <div class="col">
-      <canvas id="trendChart" width="300" height="250"></canvas>
+    <!-- 차트 들어갈 칸 -->
+    <div class="col-md-8">
+      <div style="height: 300px;"> <!-- 차트 높이 조절 -->
+        <canvas id="trendChart" width="300" height="200"></canvas> <!-- 차트 높이 조절 -->
+      </div>
+      <!-- <div class="row mt-3" id="button-set">
+        <div class="col-md-4">
+          <button class="btn btn-primary btn-block px-3">기기별 조회</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary btn-block px-3">성별 조회</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary btn-block px-3">연령별 조회</button>
+        </div>
+      </div> -->
     </div>
-  </div>
-
-  <!-- 추천 상품 목록 칸 -->
-  <div class="row">
-    <div class="col-12">
+    <!-- 추천 상품 목록 칸 -->
+    <div class="col-md-4">
       <h4 class="mb-3">추천 상품 목록</h4>
+      <div class="row" style="height: 800px; overflow: auto;">
+			<c:forEach var="data" items="${searchData}">
+				<c:forEach var="item" items="${data.items}">
+	
+					<div class="col-md-6 mb-4 product-item" style="height: auto;">
+						<div style="height: 150px;">
+							<a href="${item.link}"><img src="${item.image}"
+								alt="${item.title}" style="height: 100%; width: auto;"></a>
+						</div>
+	
+						<div style="height: 100px;">
+							<p><a href="${item.link}">${item.title}</a></p>
+							<p>가격: ${item.lprice}</p>
+							<p>${item.category1}> ${item.category2} > ${item.category3}</p>
+						</div>
+					</div>
+				</c:forEach>
+			</c:forEach>
+		</div>
     </div>
-    <!-- 상품 목록을 2열로 나누어 6개의 칸을 만듭니다. -->
-    <!-- 예시로 6개의 상품 칸을 만들었습니다. 실제 상품 정보를 반영해야 합니다. -->
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 1</div>
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 2</div>
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 3</div>
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 4</div>
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 5</div>
-    <div class="col-md-4 col-sm-6 mb-4" style="height: 200px;">상품 6</div>
   </div>
 </div>
 
 
 
-
-
 <script>
+/* <차트 생성 script> */
 //JSON 문자열을 JavaScript 객체로 파싱
 var trendData = JSON.parse('<c:out value="${trendData}" escapeXml="false" />');
 
@@ -77,9 +108,15 @@ var labels = trendData.results[0].data.map(function(item) {
 var ctx = document.getElementById('trendChart').getContext('2d');
 
 var datasets = trendData.results.map(function(result, index) {
-    var datasetData = result.data.map(function(item) {
-        return item.ratio;
-    });
+    var datasetData;
+    if (result.data.length > 0) {
+        datasetData = result.data.map(function(item) {
+            return item.ratio;
+        });
+    } else {
+        // 검색 결과 데이터가 없는 경우, 0으로 채워진 배열을 생성
+        datasetData = Array(labels.length).fill(0);
+    }
 
     // 색상 배열
     var colors = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)'];
@@ -91,7 +128,7 @@ var datasets = trendData.results.map(function(result, index) {
         borderColor: colors[index % colors.length],  
         backgroundColor: 'rgba(0, 0, 0, 0)',
         pointBorderColor: colors[index % colors.length],
-        pointBackgroundColor: '#fff',
+        pointBackgroundColor: colors[index % colors.length],
         pointBorderWidth: 1,
         pointHoverRadius: 5,
         pointHoverBackgroundColor: colors[index % colors.length],
@@ -100,8 +137,8 @@ var datasets = trendData.results.map(function(result, index) {
         pointRadius: 1,
         pointHitRadius: 10,
     };
+console.log(datasetData);
 });
-
 var trendChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -137,7 +174,7 @@ var trendChart = new Chart(ctx, {
         }
     }
 });
-
+/* </차트 생성 script> */
 
 </script>
 </body>

@@ -12,31 +12,78 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiDatalabTrend {
-	public static void main(String[] args) {
-        String clientId = ""; // 애플리케이션 클라이언트 아이디
-        String clientSecret = ""; // 애플리케이션 클라이언트 시크릿
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-        String apiUrl = "https://openapi.naver.com/v1/datalab/shopping/categories";
+@Service
+public class ApiDatalabKeywordService {
 
+	@Value("${naver.client.id}") 
+    private String clientId;
+	@Value("${naver.client.secret}") 
+    private String clientSecret;
+
+    private String apiUrl= "https://openapi.naver.com/v1/datalab/shopping/category/keywords";
+
+
+    public String getTrendData(TrendInquiryVO inquiryData) {
+    	System.out.println("in ApiDatalabKeywordService");
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         requestHeaders.put("Content-Type", "application/json");
 
-        String requestBody = "{\"startDate\":\"2024-01-01\"," +
-                "\"endDate\":\"2024-01-14\"," +
-                "\"timeUnit\":\"date\"," +
-                "\"category\":[{\"name\":\"패션의류\",\"param\":[\"50000000\"]}," +
-                              "{\"name\":\"화장품/미용\",\"param\":[\"50000002\"]}]," +
-                "\"device\":\"pc\"," +
-                "\"ages\":[\"20\",\"30\"]," +
-                "\"gender\":\"f\"}";
+        String requestBody = makeRequestBody(inquiryData);
+        return post(apiUrl, requestHeaders, requestBody);
+    }
+	
+    private static String makeRequestBody(TrendInquiryVO inquiryData) {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("{");
+        sb.append("\"startDate\":\"").append(inquiryData.getStartDate()).append("\",");
+        sb.append("\"endDate\":\"").append(inquiryData.getEndDate()).append("\",");
+        sb.append("\"timeUnit\":\"").append(inquiryData.getTimeUnit()).append("\",");
+        sb.append("\"category\":\"").append(inquiryData.getCategoryParam()).append("\",");
 
-        String responseBody = post(apiUrl, requestHeaders, requestBody);
-        System.out.println(responseBody);
+        sb.append("\"keyword\":[");
+        for (int i = 0; i < inquiryData.getKeyword().length; i++) {
+            sb.append("{\"name\":\"").append(inquiryData.getKeyword()[i]).append("\",");
+            sb.append("\"param\":[\"").append(inquiryData.getKeyword()[i]).append("\"]}");
+            if (i < inquiryData.getKeyword().length - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("],");
+
+        sb.append("\"device\":\"").append(inquiryData.getDevice()).append("\",");
+        sb.append("\"gender\":\"").append(inquiryData.getGender()).append("\",");
+
+        sb.append("\"ages\":").append(arrayToJson(inquiryData.getAges()));
+        sb.append("}");
+        
+        System.out.println(sb);
+        return sb.toString();
     }
 
+
+    // String 배열을 JSON 배열 형식의 문자열로 변환합니다.
+    private static String arrayToJson(String[] array) {
+        if (array == null || array.length == 0) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < array.length; i++) {
+            sb.append("\"").append(array[i]).append("\"");
+            if (i < array.length - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+    
     private static String post(String apiUrl, Map<String, String> requestHeaders, String requestBody) {
         HttpURLConnection con = connect(apiUrl);
 
