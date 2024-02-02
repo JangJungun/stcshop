@@ -15,11 +15,10 @@
   since    : 1.0.0
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <title>분야별 검색</title>
 
 </head>
@@ -28,215 +27,247 @@
 <div class="container mt-5">
     <h2>통계 조회</h2>
     <hr />
-   	
-		<form method="post" action="/main/inquiry.do" id="inquiryForm">
-			<div class="row g-3">
-			
-			<strong class="title">분류</strong>
-			<%-- 분류 한세트 --%>
-            <div class="form-group col-sm-3">
-			  <select class="form-control form-select" id="category1" name="category1" required>
-			    <option value="" selected disabled hidden>1분류</option>
-			  </select>
-			
-			</div>
-			<div class="form-group col-sm-3">
-			  
-			  <select class="form-control form-select" id="category2" name="category2" style="display: none;">
-			    <option value="" selected disabled hidden>2분류</option>
-			  </select>
-			</div>
-			<div class="form-group col-sm-3">
-			  
-			  <select class="form-control form-select" id="category3" name="category3" style="display: none;">
-			    <option value="" selected disabled hidden>3분류</option>
-			  </select>
-			</div>
- 			<div class="form-group col-sm-3">
-			  
-
-			</div> 
-			<%-- /분류 한세트 --%>
-			
-
-			<input type="hidden" id="categoryName" name="categoryName">
-			<input type="hidden" id="categoryParam" name="categoryParam">
-			<input type="hidden" id="categoryName2" name="categoryName2">
-			<input type="hidden" id="categoryParam2" name="categoryParam2">
-			<input type="hidden" id="categoryName3" name="categoryName3">
-			<input type="hidden" id="categoryParam3" name="categoryParam3">
-			
-			<button type="button" class="w-25 btn btn-secondary ms-2" id="addCategory">추가</button>
-<%-- --%>
-		<hr />	
-			<input type="hidden" id="keyword" name="keyword" value=""/>
-				<div class="set_keyword_wrap" style="display: none;">
-				  <strong class="title me-2">검색어</strong>
-					<div class="set_keyword2">
-					<!-- 추가 버튼 클릭 시 생겨야 할 field
-						<div class="cell keyword">
-							<span>니트</span> <a href="#">삭제</a>
-						</div>
-					 -->
-						<div class="cell input">
-							<input type="text" id="item_keyword" placeholder="비교할 검색어 추가">
-							<button type="button" class="btn btn-outline-secondary" id="addNewKwrd">추가</button>
+	  <div class="row a">
+	   	<div class="col-md-8">
+			<form method="post" action="/main/inquiry.do" id="inquiryForm">
+				<div class="row g-3">
+				
+				<strong class="title">분류</strong>
+				<%-- 분류 한세트 --%>
+	            <div class="form-group col-sm-3">
+				  <select class="form-control form-select" id="category1" name="category1" required>
+				    <option value="" selected disabled hidden>1분류</option>
+				  </select>
+				
+				</div>
+				<div class="form-group col-sm-3">
+				  
+				  <select class="form-control form-select" id="category2" name="category2" style="display: none;">
+				    <option value="" selected disabled hidden>2분류</option>
+				  </select>
+				</div>
+				<div class="form-group col-sm-3">
+				  
+				  <select class="form-control form-select" id="category3" name="category3" style="display: none;">
+				    <option value="" selected disabled hidden>3분류</option>
+				  </select>
+				</div>
+	 			<div class="form-group col-sm-3">
+				  
+	
+				</div> 
+				<%-- /분류 한세트 --%>
+				
+	
+				<input type="hidden" id="categoryName" name="categoryName">
+				<input type="hidden" id="categoryParam" name="categoryParam">
+				<input type="hidden" id="categoryName2" name="categoryName2">
+				<input type="hidden" id="categoryParam2" name="categoryParam2">
+				<input type="hidden" id="categoryName3" name="categoryName3">
+				<input type="hidden" id="categoryParam3" name="categoryParam3">
+				
+				<button type="button" class="w-25 btn btn-secondary ms-2" id="addCategory">추가</button>
+	<%-- --%>
+			<hr />	
+				<input type="hidden" id="keyword" name="keyword" value=""/>
+					<div class="set_keyword_wrap" style="display: none;">
+					  <strong class="title me-2">검색어</strong>
+						<div class="set_keyword2 d-flex flex-row">
+							<div class="cell input">
+								<input type="text" id="item_keyword" placeholder="비교할 검색어 추가">
+								<button type="button" class="btn btn-outline-secondary" id="addNewKwrd">추가</button>
+							</div>
 						</div>
 					</div>
+					
+					<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 추가</button>
+					
+	
+	        <!-- <label for="state" class="form-label">기간</label> -->
+	        <strong class="title me-2">기간</strong>
+			<div class="row">
+				<div class="col-md-2">
+	              <select class="form-select" id="timeUnit" name="timeUnit" required>
+	                <option value="date" >일간</option>
+	                <option value="week" selected>주간</option>
+	                <option value="month" >월간</option>
+	              </select>
+	              
+	              <div class="invalid-feedback">
+	                valid
+	              </div>
+	            </div>
+	            
+				<div class="col-md-5" id="">
+				  <!-- 1개월 라디오 버튼 -->
+				  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod0" autocomplete="off" required>
+				  <label class="btn btn-outline-primary" for="setPeriod0">1개월</label>
+				
+				  <!-- 3개월 라디오 버튼 -->
+				  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod1" autocomplete="off">
+				  <label class="btn btn-outline-primary" for="setPeriod1">3개월</label>
+				
+				  <!-- 1년 라디오 버튼 -->
+				  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod2" autocomplete="off">
+				  <label class="btn btn-outline-primary" for="setPeriod2">1년</label>
+				
+				  <!-- 직접입력 라디오 버튼 -->
+				  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod3" autocomplete="off">
+				  <label class="btn btn-outline-primary" for="setPeriod3">직접입력</label>
 				</div>
-				
-				<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 추가</button>
-				
-
-        <!-- <label for="state" class="form-label">기간</label> -->
-        <strong class="title me-2">기간</strong>
-		<div class="row">
-			<div class="col-md-2">
-              <select class="form-select" id="timeUnit" name="timeUnit" required>
-                <option value="date" >일간</option>
-                <option value="week" selected>주간</option>
-                <option value="month" >월간</option>
-              </select>
-              
-              <div class="invalid-feedback">
-                valid
-              </div>
-            </div>
-            
-			<div class="col-md-5" id="">
-			  <!-- 1개월 라디오 버튼 -->
-			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod0" autocomplete="off" required>
-			  <label class="btn btn-outline-primary" for="setPeriod0">1개월</label>
-			
-			  <!-- 3개월 라디오 버튼 -->
-			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod1" autocomplete="off">
-			  <label class="btn btn-outline-primary" for="setPeriod1">3개월</label>
-			
-			  <!-- 1년 라디오 버튼 -->
-			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod2" autocomplete="off">
-			  <label class="btn btn-outline-primary" for="setPeriod2">1년</label>
-			
-			  <!-- 직접입력 라디오 버튼 -->
-			  <input type="radio" class="btn-check" name="itemPeriod" id="setPeriod3" autocomplete="off">
-			  <label class="btn btn-outline-primary" for="setPeriod3">직접입력</label>
+				<!-- '직접선택'이 활성화 될 때 보여질 입력 필드들 -->
+				<div class="col-md-8" id="customPeriodInputs" style="padding-top: 10px; display: none;">
+				  <div class="row">
+				    <div class="col">
+				      <div class="input-group input-group-sm">
+	
+				        <input type="date" class="form-control" id="startDate" name="startDate" required="required">
+				      </div>
+				    </div>
+				    ~
+				    <div class="col">
+				      <div class="input-group input-group-sm">
+	
+				        <input type="date" class="form-control" id="endDate" name="endDate" required="required">
+				      </div>
+				    </div>
+				  </div>
+				</div>
 			</div>
-			<!-- '직접선택'이 활성화 될 때 보여질 입력 필드들 -->
-			<div class="col-md-8" id="customPeriodInputs" style="padding-top: 10px; display: none;">
-			  <div class="row">
-			    <div class="col">
-			      <div class="input-group input-group-sm">
-
-			        <input type="date" class="form-control" id="startDate" name="startDate" required="required">
-			      </div>
-			    </div>
-			    ~
-			    <div class="col">
-			      <div class="input-group input-group-sm">
-
-			        <input type="date" class="form-control" id="endDate" name="endDate" required="required">
-			      </div>
-			    </div>
-			  </div>
-			</div>
-		</div>
-
-<%-- 기기별 --%>
-
-<div class="form_row form_float d-flex align-items-center">
-  <strong class="title me-2">기기별</strong>
+	
+	<%-- 기기별 --%>
+	
+	<div class="form_row form_float d-flex align-items-center">
+	  <strong class="title me-2">기기별</strong>
+	  
+	  <div class="set_col set_target_chk d-flex">
+	    <!-- 전체 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input" id="device_0">
+	      <label class="form-check-label" for="device_0">전체</label>
+	    </div>
+	    <!-- PC 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input" id="device_1" value="pc">
+	      <label class="form-check-label" for="device_1">PC</label>
+	    </div>
+	    <!-- 모바일 체크박스 -->
+	    <div class="form-check">
+	      <input type="checkbox" class="form-check-input" id="device_2" value="mo">
+	      <label class="form-check-label" for="device_2">모바일</label>
+	    </div>
+	  </div>
+	  <input type="hidden" name="device" id="device">
+	  
+	  <%-- 성별 --%>
+	  <strong class="title px-2 ms-4">성별</strong>
+	  <div class="set_col set_target_chk d-flex">
+	    <!-- 전체 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input" id="gender_0">
+	      <label class="form-check-label" for="gender_0">전체</label>
+	    </div>
+	    <!-- 남 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input" id="gender_1" value="m">
+	      <label class="form-check-label" for="gender_1">남</label>
+	    </div>
+	    <!-- 여 체크박스 -->
+	    <div class="form-check">
+	      <input type="checkbox" class="form-check-input" id="gender_2" value="f">
+	      <label class="form-check-label" for="gender_2">여</label>
+	    </div>
+	  </div>
+	  <input type="hidden" name="gender" id="gender">
+	</div>
+	  <%-- 연령 --%>
+	<div class="form_row form_float d-flex align-items-center">
+	  <strong class="title me-2">연령</strong>
+	  <div class="set_col set_target_chk d-flex">
+	    <!-- 전체 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_0">
+	      <label class="form-check-label" for="age_0">전체</label>
+	    </div>
+	    <!-- 10대 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_1" value="10">
+	      <label class="form-check-label" for="age_1">10대</label>
+	    </div>
+	    <!-- 20대 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_2" value="20">
+	      <label class="form-check-label" for="age_2">20대</label>
+	    </div>
+	    <!-- 30대 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_3" value="30">
+	      <label class="form-check-label" for="age_3">30대</label>
+	    </div>
+	    <!-- 40대 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_4" value="40">
+	      <label class="form-check-label" for="age_4">40대</label>
+	    </div>
+	    <!-- 50대 체크박스 -->
+	    <div class="form-check me-2">
+	      <input type="checkbox" class="form-check-input age" id="age_5" value="50">
+	      <label class="form-check-label" for="age_5">50대</label>
+	    </div>
+	    <!-- 60대 체크박스 -->
+	    <div class="form-check">
+	      <input type="checkbox" class="form-check-input age" id="age_6" value="60">
+	      <label class="form-check-label" for="age_6">60대 이상</label>
+	    </div>
+	  </div>
+	  <input type="hidden" name="ages" id="ages">
+	  </div>
+	
+	<%-- /연령 --%>
+	
+	
+	            
+		<hr class="my-4">
+	
+		<button class="w-50 btn btn-primary btn-lg" type="submit">조회</button>
+		</form>
+	  </div>
+  </div>
   
-  <div class="set_col set_target_chk d-flex">
-    <!-- 전체 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input" id="device_0">
-      <label class="form-check-label" for="device_0">전체</label>
-    </div>
-    <!-- PC 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input" id="device_1" value="pc">
-      <label class="form-check-label" for="device_1">PC</label>
-    </div>
-    <!-- 모바일 체크박스 -->
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="device_2" value="mo">
-      <label class="form-check-label" for="device_2">모바일</label>
-    </div>
-  </div>
-  <input type="hidden" name="device" id="device">
   
-  <%-- 성별 --%>
-  <strong class="title px-2 ms-4">성별</strong>
-  <div class="set_col set_target_chk d-flex">
-    <!-- 전체 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input" id="gender_0">
-      <label class="form-check-label" for="gender_0">전체</label>
-    </div>
-    <!-- 남 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input" id="gender_1" value="m">
-      <label class="form-check-label" for="gender_1">남</label>
-    </div>
-    <!-- 여 체크박스 -->
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="gender_2" value="f">
-      <label class="form-check-label" for="gender_2">여</label>
-    </div>
+  <div class="col-md-1"></div>
+  
+  <div class="col-md-3">
+	  
+	  <div class="section_insite container">
+	    <h4 class="insite_title">
+	        <strong>주간 인기검색어</strong>
+	        <span class="title_sub"><!-- 기간정보 들어갈 칸 --></span>
+	    </h4>
+	    <div class="rank_top1000">
+	        <strong>TOP 100</strong>
+	        <div class="rank_top1000_scroll">
+	            <ul class="rank_top1000_list list-group">
+	                <!-- 인기검색어 TOP100 크롤링 데이터 -->
+	            </ul>
+	        </div>
+	        <div class="top100_btn_area d-flex justify-content-between align-items-center">
+	            <span class="page_info"><em>1</em>/10</span>
+	            <div class="btn_page_box">
+	                <a href="#" class="btn_page_prev btn btn-secondary" disabled><span class="blind">이전</span></a>
+	                <a href="#" class="btn_page_next btn btn-primary"><span class="blind">다음</span></a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+		
+		
+	</div>
   </div>
-  <input type="hidden" name="gender" id="gender">
-</div>
-  <%-- 연령 --%>
-<div class="form_row form_float d-flex align-items-center">
-  <strong class="title me-2">연령</strong>
-  <div class="set_col set_target_chk d-flex">
-    <!-- 전체 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_0">
-      <label class="form-check-label" for="age_0">전체</label>
-    </div>
-    <!-- 10대 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_1" value="10">
-      <label class="form-check-label" for="age_1">10대</label>
-    </div>
-    <!-- 20대 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_2" value="20">
-      <label class="form-check-label" for="age_2">20대</label>
-    </div>
-    <!-- 30대 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_3" value="30">
-      <label class="form-check-label" for="age_3">30대</label>
-    </div>
-    <!-- 40대 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_4" value="40">
-      <label class="form-check-label" for="age_4">40대</label>
-    </div>
-    <!-- 50대 체크박스 -->
-    <div class="form-check me-2">
-      <input type="checkbox" class="form-check-input age" id="age_5" value="50">
-      <label class="form-check-label" for="age_5">50대</label>
-    </div>
-    <!-- 60대 체크박스 -->
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input age" id="age_6" value="60">
-      <label class="form-check-label" for="age_6">60대 이상</label>
-    </div>
-  </div>
-  <input type="hidden" name="ages" id="ages">
-  </div>
-  </div>
-<%-- /연령 --%>
+	
 
 
-            
-	<hr class="my-4">
-
-	<button class="w-50 btn btn-primary btn-lg" type="submit">조회</button>
-	</form>
-</div>
 <hr>
 <%-- 비교조회 --%>
 				
@@ -387,6 +418,63 @@ $(document).ready(function(){
 	  // 라디오 버튼에 이벤트 리스너를 추가합니다.
 	  $('input[type=radio][name=itemPeriod]').change(handleRadioChange);
 	 
+	  
+	  
+	  
+	  
+	  
+	  //인기검색어 TOP 100 페이징, 비동기적으로 데이터 가져오기
+	  var currentPage = 1;
+      var totalPage = 10;
+      /*
+      페이지 로드시 loadPage함수를 한번만 실행하지만, 
+      inquirytrendData.do의 future.join()에서 크롤링작업이 완료될때까지 대기하기 때문에
+      크롤링이 완료되는대로 페이지에 List 반영
+      */
+      loadPage(currentPage);
+
+      $(".btn_page_next").click(function(e) {
+          e.preventDefault();
+          if(currentPage < totalPage) {
+              currentPage++;
+              loadPage(currentPage);
+          }
+      });
+
+      $(".btn_page_prev").click(function(e) {
+          e.preventDefault();
+          if(currentPage > 1) {
+              currentPage--;
+              loadPage(currentPage);
+          }
+      });
+
+      function loadPage(page) {
+          $.ajax({
+              url: "/main/inquirytrendData.do", 
+              type: "GET",
+              data: { page: page },
+              success: function(data) {
+                  var listHtml = '';
+                  $.each(data, function(i, item) {
+                	    var order = (page - 1) * 10 + (i + 1);
+                	    listHtml += '<li class="list-group-item"><a href="/main/searchTopKeyword.do?keyword=' + encodeURIComponent(item.keyword) + '" class="link_text"><span class="rank_top1000_num badge bg-primary">' + order + '</span>' + item.keyword + '</a></li>';
+                	});
+
+                  $(".rank_top1000_list").html(listHtml);
+                  $(".page_info").html('<em>' + page + '</em>/10');
+                  
+               // 페이지 정보와 버튼 상태 업데이트
+                  updatePageInfoAndButtons(page);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  console.log(textStatus, errorThrown);
+              }
+          });
+      }
+	  
+	  
+      
 });
 
 //각 분류의 <select>에 옵션을 추가하는 함수
@@ -711,7 +799,10 @@ $('#addNewKwrd').click(function(){
     if($('.cell.keyword').length < 5){
       var new_keyword = $('#item_keyword').val();
       if(new_keyword != ''){
-        var new_keyword_div = '<div class="cell keyword"><span>'+ new_keyword +'</span> <a href="#" class="deleteKeyword">삭제</a></div>';
+        var new_keyword_div = '<div class="cell keyword d-inline-block p-2 border rounded me-2"><span>'+ new_keyword +'</span> <a href="#" class="deleteKeyword text-danger ms-2">X</a></div>'
+
+
+;
         $('.set_keyword2').append(new_keyword_div);
         $('#item_keyword').val('');
       }
@@ -740,6 +831,22 @@ function updateKeywords() {
  }
 
 
+function updatePageInfoAndButtons(page) {
+    // 페이지 정보 업데이트
+    $(".page_info").html('<em>' + page + '</em>/10');
 
+    // 버튼 활성/비활성 상태 업데이트
+    if(page === 1) {
+        $(".btn_page_prev").attr("disabled", true);
+    } else {
+        $(".btn_page_prev").removeAttr("disabled");
+    }
+
+    if(page === 10) {
+        $(".btn_page_next").attr("disabled", true);
+    } else {
+        $(".btn_page_next").removeAttr("disabled");
+    }
+}
 </script>
 </html>

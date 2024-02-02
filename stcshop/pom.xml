@@ -20,6 +20,7 @@
 		<spring.maven.artifact.version>5.3.20</spring.maven.artifact.version>
         <org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<org.apache.tiles-version>3.0.1</org.apache.tiles-version>
+		
 	</properties>
 
 	<repositories>
@@ -125,6 +126,48 @@
 			<artifactId>commons-compress</artifactId>
 			<version>1.21</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.12.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.brotli/dec -->
+		<dependency>
+		    <groupId>org.brotli</groupId>
+		    <artifactId>dec</artifactId>
+		    <version>0.1.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents.client5</groupId>
+		    <artifactId>httpclient5</artifactId>
+		    <version>5.2.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.core5/httpcore5 -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents.core5</groupId>
+		    <artifactId>httpcore5</artifactId>
+		    <version>5.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents.core5/httpcore5-h2 -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents.core5</groupId>
+		    <artifactId>httpcore5-h2</artifactId>
+		    <version>5.2</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -389,6 +432,24 @@
 		    <artifactId>jsoup</artifactId>
 		    <version>1.13.1</version>
 		</dependency>
+		
+		
+		<!-- 셀레니움 -->
+		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+		    <groupId>org.seleniumhq.selenium</groupId>
+		    <artifactId>selenium-java</artifactId>
+		    <version>3.141.59</version>
+		</dependency>
+		
+		<!-- 웹드라이버 매니저 -->
+		<!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+		<dependency>
+		    <groupId>io.github.bonigarcia</groupId>
+		    <artifactId>webdrivermanager</artifactId>
+		    <version>5.6.3</version>
+		</dependency>
+
 
 		
 	</dependencies>

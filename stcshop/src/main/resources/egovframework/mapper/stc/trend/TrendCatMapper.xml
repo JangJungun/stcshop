@@ -34,6 +34,13 @@
 			AND GDS_CLSF_THR_NM != "";
  	</select>
  	
+ 	<select id="getCategoryParam" parameterType="String" resultType="String">
+ 		SELECT CAT_ID FROM TREND_CAT
+			WHERE GDS_CLSF_ONE_NM =#{category}
+			AND GDS_CLSF_TWO_NM =''
+			LIMIT 1
+ 	</select>
+ 	
 	
 
 </mapper>

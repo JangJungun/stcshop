@@ -29,15 +29,18 @@
           <li class="nav-item" style="margin-right: 40px;">
             <a class="nav-link ${currentMenu == 'usrinfo' ? 'link-primary' : ''}" href="/usrinfo.do">마이페이지</a>
           </li>
-          <li class="nav-item" style="margin-right: 40px;">
-            <a class="nav-link ${currentMenu == 'admin' ? 'link-primary' : ''}" href="/admin.do">관리자페이지</a>
-          </li>
+          <c:if test="${sessionScope.user.grpId == 'GROUP_00000000000001'}">
+            <li class="nav-item" style="margin-right: 40px;">
+                <a class="nav-link ${currentMenu == 'admin' ? 'link-primary' : ''}" href="/admin.do">관리자페이지</a>
+            </li>
+        </c:if>
         </ul>
       </div>
       
     </div>
     <div class="d-flex align-items-center">
-	  <p class="fw-bolder mb-0 text-nowrap">관리자님 어서오세요.   &nbsp;&nbsp;</p>
+	  <p class="fw-bolder mb-0 text-nowrap">${sessionScope.user.nickNm}님 어서오세요.   &nbsp;&nbsp;</p>
+	  <a href="/logout.do" class="btn btn-secondary">logout</a>
 	</div>
 
     <img src="<c:url value='/images/defaultprofile.png'/>" alt="profile" class="profile" width="5%">

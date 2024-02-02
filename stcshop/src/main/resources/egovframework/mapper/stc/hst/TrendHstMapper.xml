@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.stcreative.trend.hst.mapper.TrendHstMapper">
+	<resultMap id="UserResultMap" type="kr.co.stcreative.trend.hst.service.TrendInqHstVO">
+    	<result property="hstId" column="HST_ID" />
+	    <result property="usrId" column="USR_ID" />
+	    <result property="srchKwrdCn" column="SRCH_KWRD_CN" />
+	    <result property="gdsClsfOneNm" column="GDS_CLSF_ONE_NM" />
+	    <result property="gdsClsfTwoNm" column="GDS_CLSF_TWO_NM" />
+	    <result property="gdsClsfThrNm" column="GDS_CLSF_THR_NM" />
+	    <result property="srchDt" column="SRCH_DT" />
+	    <result property="inqPrdUnitCd" column="INQ_PRD_UNIT_CD" />
+	    <result property="inqPrdBgngYmd" column="INQ_PRD_BGNG_YMD" />
+	    <result property="inqPrdEndYmd" column="INQ_PRD_END_YMD" />
+	    <result property="deviceTypeCd" column="DEVICE_TYPE_CD" />
+	    <result property="sxdsCd" column="SXDS_CD" />
+	    <result property="ageCd" column="AGE_CD" />
+	    <result property="inqGdsNm" column="INQ_GDS_NM" />
+  	</resultMap>
+  
+	
+	<insert id="insertInqHst">
+		INSERT INTO TH_TRND_INQ_HST(
+			HST_ID
+		   ,USR_ID
+		   ,SRCH_KWRD_CN
+		   ,GDS_CLSF_ONE_NM
+		   ,GDS_CLSF_TWO_NM
+		   ,GDS_CLSF_THR_NM
+		   ,SRCH_DT
+		   ,INQ_PRD_UNIT_CD
+		   ,INQ_PRD_BGNG_YMD
+		   ,INQ_PRD_END_YMD
+		   ,DEVICE_TYPE_CD
+		   ,SXDS_CD
+		   ,AGE_CD
+		)
+		VALUES
+		(
+			#{hstId}
+		   ,#{usrId}
+		   ,#{srchKwrdCn}
+		   ,#{gdsClsfOneNm}
+		   ,#{gdsClsfTwoNm}
+		   ,#{gdsClsfThrNm}
+		   ,#{srchDt}
+		   ,#{inqPrdUnitCd}
+		   ,#{inqPrdBgngYmd}
+		   ,#{inqPrdEndYmd}
+		   ,#{deviceTypeCd}
+		   ,#{sxdsCd}
+		   ,#{ageCd}
+		);
+	</insert>
+	
+	<select id="selectHstById" resultMap="UserResultMap" parameterType="String">
+		SELECT 
+			T.SRCH_DT 
+		   ,T.GDS_CLSF_ONE_NM
+		   ,T.GDS_CLSF_TWO_NM
+		   ,T.GDS_CLSF_THR_NM
+		   ,T.SRCH_KWRD_CN
+		   ,G.INQ_GDS_NM
+		   ,T.USR_ID
+		FROM
+			TH_TRND_INQ_HST T
+		LEFT OUTER JOIN
+			TH_GDS_INQ_HST G
+			ON T.HST_ID = G.HST_ID 
+		   AND T.USR_ID = G.USR_ID
+		WHERE
+			T.USR_ID = #{usrId}
+	
+	</select>
+	
+</mapper>

@@ -1,5 +1,6 @@
 package kr.co.stcreative.trend.main.service;
 
+@Deprecated
 public class NaverShopProduct {
 	
 	/*

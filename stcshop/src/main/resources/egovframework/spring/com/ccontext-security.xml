@@ -20,7 +20,7 @@
 <!-- https://www.egovframe.go.kr/wiki/doku.php?id=egovframework:rte4.1:fdl:server_security:authentication -->
 	<!-- pattern 경로 아래의 모든 요청에 대한 보안을 무시합니다. -->
 	<security:http pattern="/css/**" security="none"/>
-	<security:http pattern="/html/**" security="none"/>
+	<!-- <security:http pattern="/html/**" security="none"/> -->
     <security:http pattern="/images/**" security="none"/>
  	<security:http pattern="/js/**" security="none"/>
  	<security:http pattern="/resource/**" security="none"/>
@@ -30,30 +30,25 @@
 
     <egov-security:config id="securityConfig"
     	
-		loginUrl="/uat/uia/egovLoginUsr.do"
-		logoutSuccessUrl="/EgovContent.do"
-		loginFailureUrl="/uat/uia/egovLoginUsr.do?login_error=1"
-		accessDeniedUrl="/sec/ram/accessDenied.do"
+		loginUrl="/mainPage.do"
+		logoutSuccessUrl="/main/inquirytrend.do"
+		loginFailureUrl="/error.do"
+		accessDeniedUrl="/deny.do"
 
-		dataSource="egov.dataSource"
-		jdbcUsersByUsernameQuery="SELECT USER_ID, ESNTL_ID AS PASSWORD, 1 ENABLED, USER_NM, USER_ZIP,
-                                                              USER_ADRES, USER_EMAIL, USER_SE, ORGNZT_ID, ESNTL_ID,
-                                                              (select a.ORGNZT_NM from COMTNORGNZTINFO a where a.ORGNZT_ID = m.ORGNZT_ID) ORGNZT_NM
-                                                       FROM COMVNUSERMASTER m WHERE CONCAT(USER_SE, USER_ID) = ?"
-		jdbcAuthoritiesByUsernameQuery="SELECT A.SCRTY_DTRMN_TRGET_ID USER_ID, A.AUTHOR_CODE AUTHORITY
-                                                             FROM COMTNEMPLYRSCRTYESTBS A, COMVNUSERMASTER B
-                                                             WHERE A.SCRTY_DTRMN_TRGET_ID = B.ESNTL_ID AND B.USER_ID = ?"
-		jdbcMapClass="egovframework.com.sec.security.common.EgovSessionMapping"
+		dataSource="dataSource"
+		jdbcUsersByUsernameQuery="SELECT LGN_ACNT_ID, LGN_ACNT_PSWD, TN_USR_INFO.* FROM TN_USR_INFO WHERE LGN_ACNT_ID = ?"
+		jdbcAuthoritiesByUsernameQuery="SELECT LGN_ACNT_ID, GRP_ID FROM TN_USR_INFO WHERE LGN_ACNT_ID = ?"
+		jdbcMapClass="egovframework.rte.fdl.security.userdetails.DefaultMapUserDetailsMapping"
 
 		requestMatcherType="regex"
-		hash="plaintext"
-		hashBase64="false"
+		hash="sha-256"
+		hashBase64="true"
 
-		concurrentMaxSessons="1"
-		concurrentExpiredUrl="/EgovContent.do"
+		concurrentMaxSessons="10"
+		concurrentExpiredUrl="/error.do"
 		errorIfMaximumExceeded="false"
 
-		defaultTargetUrl="/EgovContent.do"
+		defaultTargetUrl="/main/inquirytrend.do"
 		alwaysUseDefaultTargetUrl="true"
 
 		sniff="true"
@@ -61,66 +56,26 @@
 		xssProtection="true" 
 		cacheControl="false"
 		csrf="false"
-		csrfAccessDeniedUrl="/egovCSRFAccessDenied.do"
+		csrfAccessDeniedUrl="/deny.do"
 	/>
-<!-- 
-loginUrl="/uat/uia/egovLoginUsr.do" : 로그인 페이지의 URL을 설정합니다.
-logoutSuccessUrl="/EgovContent.do" : 로그아웃 성공 후 리다이렉트 될 URL을 설정합니다.
-loginFailureUrl="/uat/uia/egovLoginUsr.do?login_error=1" : 로그인 실패 시 리다이렉트 될 URL을 설정합니다.
-accessDeniedUrl="/sec/ram/accessDenied.do" : 접근 권한이 거부된 경우다이렉트 될 URL을 설정합니다.
-dataSource="egov.dataSource" :보안 관련 정보를 조회할 때 사용할 데이터 소스를 설정합니다.
-jdbcUsersByUsernameQuery : 사용자별 정보를 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 사용자의 아이디, 패스워드, 활성화 상태 등의 정보를 가져옵니다.
-jdbcAuthoritiesByUsernameQuery : 사용자별 권한을 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 사용자의 권한 정보를 가져옵니다.
-jdbcMapClass="egovframework.com.sec.security.common.EgovSessionMapping" : 세션 매핑 클래스를 설정합니다.
-requestMatcherType="regex" : 요청 매칭 타입을 설정합니다.여기서는 정규식을 사용합니다.
-hash="plaintext" : 패스워드 해싱 방식을 설정합니다. 여기서는 평문을 사용합니다.
-hashBase64="false" : 패스워드 해싱 결과를 Base64로 인코딩할지 여부를 설정합니다.
-concurrentMaxSessons="1" : 동시에 로그인 가능한 세션 수를 설정합니다.
-currentExpiredUrl="/EgovContent.do" : 동시 로그인 세션 수를 초과했을 때 리다이렉트 될 URL을 설정합니다.
-errorIfMaximumExceededfalse" : 동시 로그인 세션 수를 초과했을 때 오류를 발생시킬지 여부를 설정합니다.
-defaultTargetUrl="/EgovContent.do" : 로그인 성공 후 기본으로 리다이렉트 될 URL을 설정합니다.
-alwaysUseDefaultTargetUrl="true" : 항상 defaultTargetUrl로 리다이렉트할지 여부를 설정합니다.
-sniff="true", xframeOptions="SAMEORIGIN", xssProtection="true", cacheControl="false" : 각각 보안 헤더 설정을 의미합니다.
-csrf="false" : CSRF 보안 설정을 활성화할지 여부를 설정합니다.
-csrfAccessDeniedUrl="/egovCSRFAccessDenied.do" : CSRF 보안 거부 시 리다이렉트 될 URL을 설정합니다.
- -->
+
  
  
 	<egov-security:secured-object-config id="securedObjectConfig"
-		sqlHierarchicalRoles="
-			SELECT a.CHLDRN_ROLE as child, a.PARNTS_ROLE parent
-			FROM COMTNROLES_HIERARCHY a LEFT JOIN COMTNROLES_HIERARCHY b on (a.CHLDRN_ROLE = b.PARNTS_ROLE)"
-		sqlRolesAndUrl="
-			SELECT a.ROLE_PTTRN url, b.AUTHOR_CODE authority
-			FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
-			WHERE a.ROLE_CODE = b.ROLE_CODE
-				AND a.ROLE_TY = 'url'  ORDER BY a.ROLE_SORT"
-		sqlRolesAndMethod="
-			SELECT a.ROLE_PTTRN as 	&quot;method&quot;, b.AUTHOR_CODE authority
-			FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
-			WHERE a.ROLE_CODE = b.ROLE_CODE
-			AND a.ROLE_TY = 'method'  ORDER BY a.ROLE_SORT"
-		sqlRolesAndPointcut="
-			SELECT a.ROLE_PTTRN pointcut, b.AUTHOR_CODE authority
-			FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
-			WHERE a.ROLE_CODE = b.ROLE_CODE
-			AND a.ROLE_TY = 'pointcut'  ORDER BY a.ROLE_SORT"
-		sqlRegexMatchedRequestMapping="
-			SELECT a.ROLE_PTTRN uri, b.AUTHOR_CODE authority
-			FROM COMTNROLEINFO a, COMTNAUTHORROLERELATE b
-			WHERE a.ROLE_CODE = b.ROLE_CODE
-			AND a.ROLE_TY = 'regex'  
-			ORDER BY a.ROLE_SORT"
+		sqlRolesAndUrl="1=1"
+		sqlHierarchicalRoles="1=1"
+		sqlRolesAndMethod="1=1"
+		sqlRolesAndPointcut="1=1"
 	/>
 <!-- 
-sqlHierarchicalRoles : 권한의 계층구조를 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 각 권한의 부모 권한과 자식 권한을 확인할 수 있습니다.
-sqlRolesAndUrl : URL별 권한을 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 각 URL에 어떤 권한이 필요한지 확인할 수 있습니다.
-sqlRolesAndMethod : 메소드별 권한을 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 각 메소드에 어떤 권한이 필요한지 확인할 수 있습니다.
-sqlRolesAndPointcut : 포인트컷별 권한을 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 각 포인트컷에 어떤 권한이 필요한지 확인할 수 있습니다.
-sqlRegexMatchedRequestMapping : 정규식을 이용해 매칭된 요청 매핑별 권한을 조회하는 SQL 쿼리를 설정합니다. 이 쿼리를 통해 각 요청 매핑에 어떤 권한이 필요한지 확인할 수 있습니다. -->
+sqlHierarchicalRoles : 계층처리를 위한 query
+sqlRolesAndUrl : URL 방식 role 지정 query. 미지정시 SecuredObjectDAO의 기본 query가 처리됨
+sqlRolesAndMethod : method 방식 role 지정 query
+sqlRolesAndPointcut : pointcut 방식 role 지정 query
+sqlRegexMatchedRequestMapping : request 마다 best matching url 보호자원 지정 query	-->
 	
 	<!-- 보안 설정 초기화를 담당하는 파트 -->
-	<egov-security:initializer id="initializer" supportMethod="true" supportPointcut="false" />
+	<egov-security:initializer id="initializer" supportMethod="false" supportPointcut="false" />
 <!-- supportMethod="true" : 메소드별 보안 설정 지원 여부를 설정합니다. 이 경우 메소드별 보안 설정을 지원합니다.
 supportPointcut="false" : 포인트컷별 보안 설정 지원 여부를 설정합니다. 이 경우 포인트컷별 보안 설정을 지원하지 않습니다. -->
 

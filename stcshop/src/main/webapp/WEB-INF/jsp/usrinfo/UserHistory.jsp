@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,30 +35,37 @@
 	<div class="container mt-4 col-md-9 float-left">
 	  <div class="d-flex justify-content-between align-items-center mb-4">
 	    <h2>조회 이력</h2>
-	    <button class="btn btn-primary">주간 활동보고서</button>
+	    <!-- <button class="btn btn-primary">주간 활동보고서</button> -->
 	  </div>
 	
-	  <div class="table-responsive">
+	  <div class="table-responsive" style="font-size: 90%; height: 80vh; overflow: auto;">
 	    <table class="table table-striped table-hover table-sm">
 	      <thead class="thead-dark">
 	        <tr>
 	          <th scope="col">순번</th>
 	          <th scope="col">조회일</th>
 	          <th scope="col">분류명</th>
+	          <th scope="col">비교분류1</th>
+	          <th scope="col">비교분류2</th>
 	          <th scope="col">검색어</th>
 	          <th scope="col">조회상품</th>
 	        </tr>
 	      </thead>
 	      <tbody>
 	        <!-- 조회 이력 데이터 반복 -->
-	        <tr>
-	          <th scope="row">1</th>
-	          <td>2024-01-23</td>
-	          <td>패션의류</td>
-	          <td>겨울자켓</td>
-	          <td>자켓 A</td>
-	        </tr>
-	        <!-- 추가 데이터 행 -->
+	        
+	        <c:forEach var="hst" items="${hstList}" varStatus="status">
+			    <tr>
+			      <th scope="row">${status.index + 1}</th>  <!-- 순번: 1부터 시작하는 인덱스 -->
+			      
+			      <td><fmt:formatDate value="${hst.srchDt}" pattern="yyyy년 MM월 dd일" /></td>  <!-- 조회일 -->
+			      <td>${hst.gdsClsfOneNm}</td>  <!-- 분류명 -->
+			      <td>${hst.gdsClsfTwoNm}</td>  <!-- 비교분류1 -->
+			      <td>${hst.gdsClsfThrNm}</td>  <!-- 비교분류2 -->
+			      <td>${hst.srchKwrdCn}</td>  <!-- 검색어 -->
+			      <td>${hst.inqGdsNm}</td>  <!-- 조회상품 -->
+			    </tr>
+			  </c:forEach>
 	        <!-- ... -->
 	      </tbody>
 	    </table>

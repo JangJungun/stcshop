@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.stcreative.admin.mapper.AdminMapper">
+	<resultMap id="UserResultMap" type="kr.co.stcreative.usrinfo.service.UsrInfoVO">
+    	<result property="usrId" column="USR_ID" />
+	    <result property="lgnAcntId" column="LGN_ACNT_ID" />
+	    <result property="lgnAcntPswd" column="LGN_ACNT_PSWD" />
+	    <result property="snsId" column="SNS_ID" />
+	    <result property="snsTypeCd" column="SNS_TYPE_CD" />
+	    <result property="snsCnctDt" column="SNS_CNCT_DT" />
+	    <result property="nickNm" column="NICK_NM" />
+	    <result property="usrEml" column="USR_EML" />
+	    <result property="usrBrdt" column="USR_BRDT" />
+	    <result property="sxdsCd" column="SXDS_CD" />
+	    <result property="mblTelno" column="MBL_TELNO" />
+	    <result property="grpId" column="GRP_ID" />
+	    <result property="joinDt" column="JOIN_DT" />
+	    <result property="mdfcnDt" column="MDFCN_DT" />
+	    <result property="whdwlDt" column="WHDWL_DT" />
+	    <result property="salt" column="SALT" />
+  	</resultMap>
+  	<resultMap id="UserHstMap" type="kr.co.stcreative.trend.hst.service.TrendInqHstVO">
+    	<result property="hstId" column="HST_ID" />
+	    <result property="usrId" column="USR_ID" />
+	    <result property="srchKwrdCn" column="SRCH_KWRD_CN" />
+	    <result property="gdsClsfOneNm" column="GDS_CLSF_ONE_NM" />
+	    <result property="gdsClsfTwoNm" column="GDS_CLSF_TWO_NM" />
+	    <result property="gdsClsfThrNm" column="GDS_CLSF_THR_NM" />
+	    <result property="srchDt" column="SRCH_DT" />
+	    <result property="inqPrdUnitCd" column="INQ_PRD_UNIT_CD" />
+	    <result property="inqPrdBgngYmd" column="INQ_PRD_BGNG_YMD" />
+	    <result property="inqPrdEndYmd" column="INQ_PRD_END_YMD" />
+	    <result property="deviceTypeCd" column="DEVICE_TYPE_CD" />
+	    <result property="sxdsCd" column="SXDS_CD" />
+	    <result property="ageCd" column="AGE_CD" />
+	    <result property="inqGdsNm" column="INQ_GDS_NM" />
+  	</resultMap>
+	
+	<select id="getUserLst" resultMap="UserResultMap">
+	    SELECT * FROM TN_USR_INFO
+	</select>
+	
+	<select id="getUserHst" resultMap="UserHstMap" parameterType="String">
+	    SELECT 
+			T.SRCH_DT 
+		   ,T.GDS_CLSF_ONE_NM
+		   ,T.GDS_CLSF_TWO_NM
+		   ,T.GDS_CLSF_THR_NM
+		   ,T.SRCH_KWRD_CN
+		   ,G.INQ_GDS_NM
+		FROM
+			TH_TRND_INQ_HST T
+		LEFT OUTER JOIN
+			TH_GDS_INQ_HST G
+			ON T.HST_ID = G.HST_ID 
+		   AND T.USR_ID = G.USR_ID
+		WHERE
+			T.USR_ID = #{usrId}
+	</select>
+	
+	
+	
+</mapper>

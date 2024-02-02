@@ -43,7 +43,8 @@
   
   <div class="row mb-4">
     <div class="col">
-      <button onclick="history.back()" class="btn btn-secondary">뒤로가기</button>
+      <button onclick="window.location.href='/main/inquirytrend.do'" class="btn btn-secondary">뒤로가기</button>
+
     </div>
   </div>
 
@@ -75,14 +76,14 @@
 	
 					<div class="col-md-6 mb-4 product-item" style="height: auto;">
 						<div style="height: 150px;">
-							<a href="${item.link}"><img src="${item.image}"
+							<a href="${item.link}"><img class="productlink" src="${item.image}"
 								alt="${item.title}" style="height: 100%; width: auto;"></a>
 						</div>
 	
 						<div style="height: 100px;">
-							<p><a href="${item.link}">${item.title}</a></p>
-							<p>가격: ${item.lprice}</p>
-							<p>${item.category1}> ${item.category2} > ${item.category3}</p>
+							<p><a class="productlink" href="${item.link}">${item.title}</a></p>
+							<p class="price">가격: ${item.lprice}</p>
+    						<p class="categories">${item.category1}> ${item.category2} > ${item.category3}</p>
 						</div>
 					</div>
 				</c:forEach>
@@ -175,6 +176,41 @@ var trendChart = new Chart(ctx, {
     }
 });
 /* </차트 생성 script> */
+
+$(document).ready(function() {
+	var userId = '${sessionScope.user.usrId}';
+	
+	
+	/* 조회상품 이력저장을 위해 TrendInqGdsHstVO와 변수명을 같게하고, 현재 결과페이지에서 추출 */
+	$(".productlink").click(function(event) {
+		var hstId = '${hstId}';//분류조회이력 ID. 분류조회를 한 결과에서 상품조회를 하기 때문에 분류조회ID도 저장
+	    var productData = {
+            inqGdsLnk: $(this).attr('href'),  // 상품 링크
+            inqGdsNm: $(this).text(),  // 상품명
+            gdsClsfOneNm: $(this).closest('.product-item').find('.categories').text().split('>')[0].trim(),  // 카테고리1
+            gdsClsfTwoNm: $(this).closest('.product-item').find('.categories').text().split('>')[1].trim(),  // 카테고리2
+            gdsClsfThrNm: $(this).closest('.product-item').find('.categories').text().split('>')[2].trim(),  // 카테고리3
+            usrId: userId,  // 사용자 ID
+            hstId: hstId
+        };
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/main/saveProductData.do",
+	        contentType: "application/json", 
+	        data: JSON.stringify(productData),
+	        success: function(response) {
+	            console.log(response);
+	        },
+	        error: function(error) {
+	            console.log(error);
+	        }
+	    });
+
+	});
+
+});
+
 
 </script>
 </body>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.stcreative.trend.hst.mapper.TrendHstGdsMapper">
+	<resultMap id="UserResultMap" type="kr.co.stcreative.trend.hst.service.TrendInqGdsHstVO">
+    	
+  	</resultMap>
+  
+	<insert id="insertInqGdsHst">
+		INSERT INTO TH_GDS_INQ_HST(
+			GDS_HST_ID
+		   ,USR_ID
+		   ,INQ_GDS_NM
+		   ,GDS_CLSF_ONE_NM
+		   ,GDS_CLSF_TWO_NM
+		   ,GDS_CLSF_THR_NM
+		   ,GDS_INQ_DT
+		   ,INQ_GDS_LNK
+		   ,HST_ID
+		)
+		VALUES
+		(
+			#{gdsHstId}
+		   ,#{usrId}
+		   ,#{inqGdsNm}
+		   ,#{gdsClsfOneNm}
+		   ,#{gdsClsfTwoNm}
+		   ,#{gdsClsfThrNm}
+		   ,#{gdsInqDt}
+		   ,#{inqGdsLnk}
+		   ,#{hstId}
+		)
+	</insert>
+	
+</mapper>

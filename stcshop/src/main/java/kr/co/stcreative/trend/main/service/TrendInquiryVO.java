@@ -2,26 +2,68 @@ package kr.co.stcreative.trend.main.service;
 
 import java.util.Arrays;
 import java.util.Map;
-
+/**
+ * <p>트렌드 통계조회VO</p>
+ *  통계조회 API 이용시 필요한 요청값을 담는다.
+ *  
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *   
+ *   수정일      수정자           수정내용
+ *  -------    --------    ---------------------------
+ * 2024-01-22   장준근          신규개발
+ *
+ * </pre>
+ * 
+ * @author SI&컨설팅 사업본부 장준근
+ * @since 1.0.0
+ * 
+ */
 public class TrendInquiryVO {
 	
-	//조회기간 시작날짜 yyyy-mm-dd
+	/**
+	 * 조회기간 시작날짜(yyyy-MM-dd)
+	 */
 	private String startDate;
-	//
+	
+	/**
+	 * 조회기간 종료날짜(yyyy-MM-dd)
+	 */
 	private String endDate;
 	
+	/**
+	 * 구간 단위 (일간, 주간, 월간)
+	 */
 	private String timeUnit;
 	
+	/**
+	 * 분야 이름
+	 */
 	private String categoryName;
 	
+	/**
+	 * 분야 코드
+	 */
 	private String categoryParam;
 	
+	/**
+	 * 기기. 검색 환경 조건
+	 */
 	private String device;
 	
+	/**
+	 * 성별 조건
+	 */
 	private String gender;
 	
+	/**
+	 * 연령 조건
+	 */
 	private String[] ages;
 	
+	/**
+	 * 검색어
+	 */
 	private String[] keyword;
 	
 	//비교 분류정보 담기

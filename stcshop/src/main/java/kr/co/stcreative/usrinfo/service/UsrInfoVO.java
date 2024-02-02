@@ -1,8 +1,8 @@
-package kr.co.stcreative.cmm.service;
+package kr.co.stcreative.usrinfo.service;
 
 import java.util.Date;
 /**
- * 사용자정보VO
+ * <p>사용자정보VO</p>
  *  
  *  
  * <pre>
@@ -10,9 +10,10 @@ import java.util.Date;
  *   
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
- * 2024.01.22  장준근           최초작성
+ * 2024-01-22   장준근          신규개발
  *
  * </pre>
+ * 
  * @author SI&컨설팅 사업본부 장준근
  * @since 1.0.0
  * 
@@ -92,6 +93,14 @@ public class UsrInfoVO {
 	 * 회원탈퇴 일시
 	 */
 	private Date whdwlDt;
+	
+	/**
+	 * 암호화 salt값
+	 */
+	private String salt;
+
+
+	
 	
 	//Getter 및 Setter
 	public String getUsrId() {
@@ -184,5 +193,21 @@ public class UsrInfoVO {
 	public void setWhdwlDt(Date whdwlDt) {
 		this.whdwlDt = whdwlDt;
 	}
+	
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	@Override
+	public String toString() {
+		return "UsrInfoVO [usrId=" + usrId + ", lgnAcntId=" + lgnAcntId + ", lgnAcntPswd=" + lgnAcntPswd + ", snsId="
+				+ snsId + ", snsTypeCd=" + snsTypeCd + ", snsCnctDt=" + snsCnctDt + ", nickNm=" + nickNm + ", usrEml="
+				+ usrEml + ", usrBrdt=" + usrBrdt + ", sxdsCd=" + sxdsCd + ", mblTelno=" + mblTelno + ", grpId=" + grpId
+				+ ", joinDt=" + joinDt + ", mdfcnDt=" + mdfcnDt + ", whdwlDt=" + whdwlDt + ", salt=" + salt + "]";
+	}
+
+	
 	
 }

@@ -29,27 +29,29 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-		   //jQeury dateicker
-	       //input을 datepicker로 선언
-	       $("#usrBrdt").datepicker({
-	           dateFormat: 'yymmdd' //달력 날짜 형태
-	           ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-	           ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
-	           ,changeYear: true //option값 년 선택 가능
-	           ,changeMonth: true //option값  월 선택 가능                
-	           ,buttonText: "선택" //버튼 호버 텍스트              
-	           ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-	           ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
-	           ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
-	           ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
-	           ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
-	           ,minDate: "-105Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-	           ,maxDate: "today" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
-	       });                    
-	       
-	       //초기값을 오늘 날짜로 설정해줘야 합니다.
-	       $('#usrBrdt').datepicker('setDate', '-20Y'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
-	   });
+  	//jQeury dateicker
+    //input을 datepicker로 선언
+    $("#usrBrdt").datepicker({
+        dateFormat: 'yymmdd' //달력 날짜 형태
+        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+        ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
+        ,changeYear: true //option값 년 선택 가능
+        ,changeMonth: true //option값  월 선택 가능                
+        ,buttonText: "선택" //버튼 호버 텍스트              
+        ,yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
+        ,monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 텍스트
+        ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip
+        ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 텍스트
+        ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 Tooltip
+        ,minDate: "-105Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+        ,maxDate: "today" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)  
+    	,yearRange: 'c-50:c' // 현재 년도로부터 30년 전까지 선택 가능
+    	,defaultDate: '-20Y' //달력기본날짜
+    });                    
+    
+    //초기값
+    //$('#usrBrdt').datepicker('setDate', '-20Y'); 
+});
 
 </script>
 <title>로그인</title>
@@ -64,33 +66,42 @@ $(document).ready(function(){
 
 <div class="container" id="container">
   <div class="form-container sign-up-container">
-    <form action="#">
+    <form action="/usrinfo/join.do" method="post">
       <h1>회원가입</h1>
 
       <span></span>
-      <input type="text" placeholder="아이디" id="lgnAcntId" />
-      <input type="password" placeholder="비밀번호" id="lgnAcntPswd" />
-      <input type="text" placeholder="닉네임" id="nickNm" />
-      <input type="email" placeholder="이메일" id="usrEml" />
-      <input type="text" placeholder="생년월일" id="usrBrdt" />
-      <input type="sample" placeholder="성별" id="sxdsCd" />
-      <input type="text" placeholder="휴대전화번호" id="mblTelno" />
+      <input type="text" placeholder="아이디" id="lgnAcntId" name="lgnAcntId" />
+      <input type="password" placeholder="비밀번호" id="lgnAcntPswd" name="lgnAcntPswd" />
+      <input type="text" placeholder="닉네임" id="nickNm" name="nickNm" />
+      <input type="email" placeholder="이메일" id="usrEml" name="usrEml" />
+      <input type="text" placeholder="생년월일" id="usrBrdt" name="usrBrdt" />
+      <div>
+	    <div style="display: inline-block;">
+	        <input type="radio" id="male" name="sxdsCd" value="M">
+	        <label for="male">남자</label>
+	    </div>
+	    <div style="display: inline-block;">
+	        <input type="radio" id="female" name="sxdsCd" value="F">
+	        <label for="female">여자</label>
+	    </div>
+	  </div>
+      <input type="text" placeholder="휴대전화번호" id="mblTelno" name="mblTelno" />
       <input type="hidden"  />
       <input type="hidden"  />
-      <button class="sign-up-button">가입</button>
+      <button class="sign-up-button" type="submit">가입</button>
     </form>
   </div>
   <div class="form-container sign-in-container">
-    <form action="/main/inquirytrend.do">
+    <form action="/usrinfo/login.do" method="post">
       <h1>로그인</h1>
-      <div class="social-container">
+      <!-- <div class="social-container">
         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      <span>or use your account</span>
-      <input type="text" placeholder="ID" />
-      <input type="password" placeholder="Password" />
+      </div> 
+      <span>or use your account</span>-->
+      <input type="text" placeholder="ID" name="lgnAcntId" />
+      <input type="password" placeholder="Password" name="lgnAcntPswd" />
       <a href="#">비밀번호를 잊어버리셨나요?</a>
       <button>로그인</button>
     </form>
