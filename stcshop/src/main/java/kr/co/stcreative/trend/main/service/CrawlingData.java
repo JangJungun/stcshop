@@ -10,7 +10,8 @@ package kr.co.stcreative.trend.main.service;
  *   수정일      수정자           수정내용
  *  -------    --------    ---------------------------
  * 2024-01-22   장준근          신규개발
- *
+ * 2024-02-06   장준근          크롤링 대상 사이트 변경으로 인한 일부항목 @deprecated
+ * 
  * </pre>
  * 
  * @author SI&컨설팅 사업본부 장준근
@@ -21,16 +22,19 @@ public class CrawlingData {
 	/**
 	 * 연도
 	 */
+	@Deprecated
 	private String year;
 	
 	/**
 	 * 주
 	 */
+	@Deprecated
     private String week;
     
     /**
      * 순위
      */
+	@Deprecated
     private String rank;
     
     /**
@@ -38,10 +42,7 @@ public class CrawlingData {
      */
     private String keyword;
     
-	public CrawlingData(String year, String week, String rank, String keyword) {
-		this.year = year;
-		this.week = week;
-		this.rank = rank;
+	public CrawlingData(String keyword) {
 		this.keyword = keyword;
 	}
 	public String getYear() {

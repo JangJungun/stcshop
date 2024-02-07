@@ -105,14 +105,9 @@ public class TrendMainController {
 	 * <p></p>
 	 * 
 	 * @param model : Model 객체. "트렌드 통계 조회" 페이지로 이동할 때 헤더 메뉴바의 active 효과를 위한 정보 저장
-	 * @param session : goMainPage메서드에서 세선에 저장한 인기검색어 TOP 100 크롤링 정보를 세션에서 가져오기 위한 객체.
-	 * @return "트렌드 통계 조회" 페이지의 view 이름을 문자열로 반환.
-	 * @throws InterruptedException
-	 * @throws ExecutionException
-	 * @see LoginController#goMainPage(HttpSession)
 	 */
 	@GetMapping("/inquirytrend.do")
-	public String goInquiryTrend(Model model, HttpSession session) throws InterruptedException, ExecutionException {
+	public String goInquiryTrend(Model model, HttpSession session) {
 		
 		// 세션에서 "future"속성을 가져와서 CompletableFuture<List<CrawlingData>> 타입으로 변환.
 		CompletableFuture<List<CrawlingData>> future = (CompletableFuture<List<CrawlingData>>) session.getAttribute("future");

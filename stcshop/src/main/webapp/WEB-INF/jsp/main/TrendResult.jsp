@@ -8,7 +8,7 @@
  
     수정일      수정자           수정내용
    -------    --------    ---------------------------
-
+   2024-01-22   장준근          신규개발
    
    
   author   : SI&컨설팅 사업본부 장준근
@@ -48,9 +48,9 @@
     </div>
   </div>
 
-  <!-- 차트와 추천 상품 목록 칸 -->
+  <!-- 차트와 추천 상품 목록 div -->
   <div class="row mb-5">
-    <!-- 차트 들어갈 칸 -->
+    <!-- 차트 들어갈 div -->
     <div class="col-md-8">
       <div style="height: 300px;"> <!-- 차트 높이 조절 -->
         <canvas id="trendChart" width="300" height="200"></canvas> <!-- 차트 높이 조절 -->
@@ -67,7 +67,7 @@
         </div>
       </div> -->
     </div>
-    <!-- 추천 상품 목록 칸 -->
+    <!-- 추천 상품 목록 div -->
     <div class="col-md-4">
       <h4 class="mb-3">추천 상품 목록</h4>
       <div class="row" style="height: 800px; overflow: auto;">

@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="<c:url value="/js/jquery-ui-1.13.2/jquery-ui.css"/>">
 <link rel="stylesheet" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>">
 
+
 <script src="<c:url value='/js/jquery-3.7.1.min.js'/>"></script>
 <script src="<c:url value='/js/bootstrap/bootstrap.min.js'/>"></script>
 

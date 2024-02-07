@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.stcreative.trend.main.service.CrawlingData;
 import kr.co.stcreative.trend.main.service.CrawlingService;
@@ -50,11 +51,11 @@ public class LoginController {
 	
 	@Autowired
 	public LoginController(LoginService loginService
-						  ,@Qualifier("egovUsrIdGnrService") EgovIdGnrService objectIdGnrService
-						  ,CrawlingService crawlingService) {
+						  ,CrawlingService crawlingService
+						  ,@Qualifier("egovUsrIdGnrService") EgovIdGnrService objectIdGnrService) {
 		this.loginService=loginService;
-		this.objectIdGnrService=objectIdGnrService;
 		this.crawlingService=crawlingService;
+		this.objectIdGnrService=objectIdGnrService;
 	}
 	
 	/**
@@ -78,14 +79,14 @@ public class LoginController {
 	 * @return 로그인 페이지
 	 */
 	@PostMapping("/usrinfo/join.do")
-	public String joinmember(UsrInfoVO vo, Model model) {
+	public String joinmember(UsrInfoVO vo, Model model, RedirectAttributes redirectAttributes) {
 		logger.info("Join User ID: " + vo.getLgnAcntId());
 		
 		// 중복 ID 체크
 	    if(loginService.isUserIdExist(vo.getLgnAcntId())) {
-	    	model.addAttribute("errorMessage", "아이디가 중복되었습니다. 다른 아이디를 입력해주세요.");
+	    	redirectAttributes.addFlashAttribute("joinErrorMessage", "아이디가 중복되었습니다. 다른 아이디를 입력해주세요.");
 	        logger.info("User ID 중복 : " + vo.getLgnAcntId());
-	        return "login";
+	        return "redirect:/mainPage.do";
 	    }
 		
 	    try {
@@ -93,7 +94,7 @@ public class LoginController {
 		} catch (FdlException e) {
 			e.printStackTrace();
 		}
-	    vo.setGrpId("GROUP_00000000000002");
+	    vo.setGrpId("GROUP_00000000000002");//일반회원 권한 그룹
 	    
 	    
 	    // db에 회원정보 저장
@@ -113,7 +114,7 @@ public class LoginController {
 	 * @return 로그인 성공시에 이용안내페이지로 이동, 실패시에 로그인페이지로 이동
 	 */
 	@PostMapping("/usrinfo/login.do")
-	public String trylogin(UsrInfoVO user, Model model, HttpSession session) {
+	public String trylogin(UsrInfoVO user, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 		logger.info("Login User ID: " + user.getLgnAcntId());
 		
 		
@@ -124,9 +125,9 @@ public class LoginController {
 			
             return "redirect:/main/info.do";
         } else {
-            model.addAttribute("errorMessage", "로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요."); 
+            redirectAttributes.addFlashAttribute("loginErrorMessage", "로그인에 실패했습니다. 아이디 또는 비밀번호를 확인해주세요."); 
             logger.info("Login failed User ID: " + user.getLgnAcntId());
-            return "login"; 
+            return "redirect:/mainPage.do"; 
         }
 		
 		

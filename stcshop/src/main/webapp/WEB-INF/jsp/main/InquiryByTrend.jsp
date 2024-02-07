@@ -8,8 +8,7 @@
  
     수정일      수정자           수정내용
    -------    --------    ---------------------------
-
-   
+   2024-01-22   장준근          신규개발
    
   author   : SI&컨설팅 사업본부 장준근
   since    : 1.0.0
@@ -29,11 +28,13 @@
     <hr />
 	  <div class="row a">
 	   	<div class="col-md-8">
+	   		<!-- 통계 조회 form -->
 			<form method="post" action="/main/inquiry.do" id="inquiryForm">
 				<div class="row g-3">
 				
 				<strong class="title">분류</strong>
-				<%-- 분류 한세트 --%>
+				
+				<!-- 분류값 option -->
 	            <div class="form-group col-sm-3">
 				  <select class="form-control form-select" id="category1" name="category1" required>
 				    <option value="" selected disabled hidden>1분류</option>
@@ -56,9 +57,9 @@
 				  
 	
 				</div> 
-				<%-- /분류 한세트 --%>
 				
-	
+				
+				<!-- api이용을 위한 hidden 값 -->
 				<input type="hidden" id="categoryName" name="categoryName">
 				<input type="hidden" id="categoryParam" name="categoryParam">
 				<input type="hidden" id="categoryName2" name="categoryName2">
@@ -69,6 +70,8 @@
 				<button type="button" class="w-25 btn btn-secondary ms-2" id="addCategory">추가</button>
 	<%-- --%>
 			<hr />	
+			
+				<!-- 검색어 조회 -->
 				<input type="hidden" id="keyword" name="keyword" value=""/>
 					<div class="set_keyword_wrap" style="display: none;">
 					  <strong class="title me-2">검색어</strong>
@@ -83,7 +86,6 @@
 					<button type="button" class="w-25 btn btn-secondary ms-2" id="addKeyword">검색어 추가</button>
 					
 	
-	        <!-- <label for="state" class="form-label">기간</label> -->
 	        <strong class="title me-2">기간</strong>
 			<div class="row">
 				<div class="col-md-2">
@@ -231,6 +233,8 @@
 	
 		<button class="w-50 btn btn-primary btn-lg" type="submit">조회</button>
 		</form>
+		<!-- 통계 조회 form -->
+		
 	  </div>
   </div>
   
@@ -238,21 +242,21 @@
   <div class="col-md-1"></div>
   
   <div class="col-md-3">
-	  
+ 	  
 	  <div class="section_insite container">
 	    <h4 class="insite_title">
 	        <strong>주간 인기검색어</strong>
-	        <span class="title_sub"><!-- 기간정보 들어갈 칸 --></span>
+	        <span class="title_sub"></span>
 	    </h4>
 	    <div class="rank_top1000">
-	        <strong>TOP 100</strong>
+	        <strong>TOP 20</strong>
 	        <div class="rank_top1000_scroll">
 	            <ul class="rank_top1000_list list-group">
-	                <!-- 인기검색어 TOP100 크롤링 데이터 -->
+	                
 	            </ul>
 	        </div>
 	        <div class="top100_btn_area d-flex justify-content-between align-items-center">
-	            <span class="page_info"><em>1</em>/10</span>
+	            <span class="page_info"><em>1</em>/2</span>
 	            <div class="btn_page_box">
 	                <a href="#" class="btn_page_prev btn btn-secondary" disabled><span class="blind">이전</span></a>
 	                <a href="#" class="btn_page_next btn btn-primary"><span class="blind">다음</span></a>
@@ -278,7 +282,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	//var ApiKindCode=1;
+	
 	//분류1 option값 설정
 	setCategoryOneOptions('category1');
 	
@@ -312,14 +316,14 @@ $(document).ready(function(){
 	    newSetHtml += '<div class="form-group' + categoryCount + ' col-sm-3"><button class="btn btn-secondary ms-2 delete-button" id="delete'+categoryCount+'">삭제</button></div>'
 	    
 	    
-	    // 새로운 분류 세트를 DOM에 추가
+	    // 새로운 분류HTML 추가
 	    $(this).before(newSetHtml);
 	    
-	 	// 새로 추가된 분류 1에 대해 option 설정
+	 	// 새로 추가된 분류 1에 option 설정
 	    setCategoryOneOptions('category1-' + categoryCount);
 	    
 	    
-	 	// 추가된 삭제 버튼에 이벤트 핸들러를 연결
+	 	// 추가된 분류의 삭제 버튼에 이벤트 핸들러를 연결
 	    $('#delete' + categoryCount).click(function() {
 	        var deleteId = $(this).attr('id');
 	        var deleteNumber = deleteId.replace('delete', '');
@@ -344,59 +348,64 @@ $(document).ready(function(){
 	
 	
 	 //1분류 ~ 3분류 숨기기/보이기
-	  $(document).on('change', '.form-select', function() {
-	        // 현재 select의 다음 모든 field-group을 찾아서 숨기고, select를 default value로 설정
-	        var allNextGroups = $(this).closest('.form-group').nextAll('.form-group');
-	        allNextGroups.find('.form-select').val('').hide();
-	        var allNextGroups2 = $(this).closest('.form-group2').nextAll('.form-group2');
-	        allNextGroups2.find('.form-select').val('').hide();
-	        var allNextGroups3 = $(this).closest('.form-group3').nextAll('.form-group3');
-	        allNextGroups3.find('.form-select').val('').hide();
+	$(document).on('change', '.form-select', function() {
+        // 현재 select의 다음 모든 field-group을 찾아서 숨기고, select를 default value로 설정
+        var allNextGroups = $(this).closest('.form-group').nextAll('.form-group');
+        allNextGroups.find('.form-select').val('').hide();
+        var allNextGroups2 = $(this).closest('.form-group2').nextAll('.form-group2');
+        allNextGroups2.find('.form-select').val('').hide();
+        var allNextGroups3 = $(this).closest('.form-group3').nextAll('.form-group3');
+        allNextGroups3.find('.form-select').val('').hide();
 
-	        // 현재 select의 다음 field-group을 찾음
-	        var nextField = $(this).closest('.form-group').next('.form-group').find('.form-select');
-	        var nextField2 = $(this).closest('.form-group2').next('.form-group2').find('.form-select');
-	        var nextField3 = $(this).closest('.form-group3').next('.form-group3').find('.form-select');
+        // 현재 select의 다음 field-group을 찾음
+        var nextField = $(this).closest('.form-group').next('.form-group').find('.form-select');
+        var nextField2 = $(this).closest('.form-group2').next('.form-group2').find('.form-select');
+        var nextField3 = $(this).closest('.form-group3').next('.form-group3').find('.form-select');
 
-	        // 만약 현재 select의 값이 ""가 아니라면 다음 field-group을 표시함
-	        if ($(this).val() !== "") {
-	            nextField.show();
-	        }
-	        if ($(this).val() !== "") {
-	            nextField2.show();
-	        }
-	        if ($(this).val() !== "") {
-	            nextField3.show();
-	        }
-	        
-	    });
+        // 만약 현재 select의 값이 ""가 아니라면 다음 field-group을 표시함
+        if ($(this).val() !== "") {
+            nextField.show();
+        }
+        if ($(this).val() !== "") {
+            nextField2.show();
+        }
+        if ($(this).val() !== "") {
+            nextField3.show();
+        }
+        
+    });
 	
 	 
-	// 라디오 버튼 변경 시 호출될 함수를 정의합니다.
+	// 라디오 버튼 변경 시 호출될 함수를 정의
 	  function handleRadioChange() {
 	    var $customPeriodInputs = $('#customPeriodInputs');
 	    var $startDate = $('#startDate');
 	    var $endDate = $('#endDate');
 	    var today = new Date();
 	    
-	    // '직접입력' 라디오 버튼이 체크되었는지 확인합니다.
+	    // '직접입력' 라디오 버튼이 체크되었는지 확인
 	    if($('#setPeriod3').is(':checked')) {
+	      //직접 날짜선택하는 input 보이도록 함 기본값으로 오늘날짜.
 	      $customPeriodInputs.show();
 	      $startDate.val(formatDate(today));
 	      $endDate.val(formatDate(today));
 	    } else {
 	      $customPeriodInputs.hide();
+	      
 	      // 현재 체크된 라디오 버튼의 id를 기반으로 날짜 계산
 	      var checkedRadioButtonId = $('input[name="itemPeriod"]:checked').attr('id');
 	      var start = new Date(today);
 
 	      switch(checkedRadioButtonId) {
+	        //1개월
 	        case 'setPeriod0':
 	          start.setMonth(today.getMonth() - 1);
 	          break;
+	        //3개월
 	        case 'setPeriod1':
 	          start.setMonth(today.getMonth() - 3);
 	          break;
+	        //1년
 	        case 'setPeriod2':
 	          start.setFullYear(today.getFullYear() - 1);
 	          break;
@@ -425,7 +434,7 @@ $(document).ready(function(){
 	  
 	  //인기검색어 TOP 100 페이징, 비동기적으로 데이터 가져오기
 	  var currentPage = 1;
-      var totalPage = 10;
+      var totalPage = 2;
       /*
       페이지 로드시 loadPage함수를 한번만 실행하지만, 
       inquirytrendData.do의 future.join()에서 크롤링작업이 완료될때까지 대기하기 때문에
@@ -433,6 +442,7 @@ $(document).ready(function(){
       */
       loadPage(currentPage);
 
+      //"다음" 버튼 클릭이벤트
       $(".btn_page_next").click(function(e) {
           e.preventDefault();
           if(currentPage < totalPage) {
@@ -440,7 +450,8 @@ $(document).ready(function(){
               loadPage(currentPage);
           }
       });
-
+		
+      //"이전" 버튼 클릭이벤트
       $(".btn_page_prev").click(function(e) {
           e.preventDefault();
           if(currentPage > 1) {
@@ -449,6 +460,7 @@ $(document).ready(function(){
           }
       });
 
+      //주간 인기검색어 비동기식으로 가져오기
       function loadPage(page) {
           $.ajax({
               url: "/main/inquirytrendData.do", 
@@ -462,7 +474,7 @@ $(document).ready(function(){
                 	});
 
                   $(".rank_top1000_list").html(listHtml);
-                  $(".page_info").html('<em>' + page + '</em>/10');
+                  $(".page_info").html('<em>' + page + '</em>/2');
                   
                // 페이지 정보와 버튼 상태 업데이트
                   updatePageInfoAndButtons(page);
@@ -615,6 +627,7 @@ function updateAgesHiddenInput() {
 
 }
 
+//첫번째 분류값의 option값들을 가져오기
 function setCategoryOneOptions(id) {
     $.ajax({
         url: '/getCategoryOne.do',  
@@ -655,6 +668,7 @@ $('#category1').change(function() {
         }
     });
 });
+
 //#category2의 선택이 변경될 때 category3의 option값 가져오기
 $('#category2').change(function() {
     var selectedValue = $(this).val();
@@ -833,7 +847,7 @@ function updateKeywords() {
 
 function updatePageInfoAndButtons(page) {
     // 페이지 정보 업데이트
-    $(".page_info").html('<em>' + page + '</em>/10');
+    $(".page_info").html('<em>' + page + '</em>/2');
 
     // 버튼 활성/비활성 상태 업데이트
     if(page === 1) {

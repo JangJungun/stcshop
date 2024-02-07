@@ -8,7 +8,7 @@
  
     수정일      수정자           수정내용
    -------    --------    ---------------------------
-
+   2024-01-22   장준근          신규개발
    
    
   author   : SI&컨설팅 사업본부 장준근
@@ -20,6 +20,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="<c:url value="/images/favicon.ico"/>">
 <link rel="stylesheet" href="<c:url value="/css/main/login.css"/>">
 <link rel="stylesheet" href="<c:url value="/js/jquery-ui-1.13.2/jquery-ui.css"/>">
 
@@ -53,6 +54,14 @@ $(document).ready(function(){
     //$('#usrBrdt').datepicker('setDate', '-20Y'); 
 });
 
+window.onload = function() {
+    var expired = '<%= session.getAttribute("expired") %>';  // 세션에서 "expired" 속성을 가져옴
+    if (expired == "true") {  // 만료되었다면
+        alert("로그인을 해주세요");  // alert 표시
+        session.removeAttribute("expired");  // "expired" 속성을 제거
+    }
+}
+
 </script>
 <title>로그인</title>
 </head>
@@ -70,14 +79,14 @@ $(document).ready(function(){
       <h1>회원가입</h1>
 
       <span></span>
-      <input type="text" placeholder="아이디" id="lgnAcntId" name="lgnAcntId" />
-      <input type="password" placeholder="비밀번호" id="lgnAcntPswd" name="lgnAcntPswd" />
-      <input type="text" placeholder="닉네임" id="nickNm" name="nickNm" />
+      <input type="text" placeholder="아이디" id="lgnAcntId" name="lgnAcntId" required="required"/>
+      <input type="password" placeholder="비밀번호" id="lgnAcntPswd" name="lgnAcntPswd" required="required"/>
+      <input type="text" placeholder="닉네임" id="nickNm" name="nickNm" required="required"/>
       <input type="email" placeholder="이메일" id="usrEml" name="usrEml" />
-      <input type="text" placeholder="생년월일" id="usrBrdt" name="usrBrdt" />
+      <input type="text" placeholder="생년월일" id="usrBrdt" name="usrBrdt" required="required" />
       <div>
 	    <div style="display: inline-block;">
-	        <input type="radio" id="male" name="sxdsCd" value="M">
+	        <input type="radio" id="male" name="sxdsCd" value="M" required>
 	        <label for="male">남자</label>
 	    </div>
 	    <div style="display: inline-block;">
@@ -102,8 +111,8 @@ $(document).ready(function(){
       <span>or use your account</span>-->
       <input type="text" placeholder="ID" name="lgnAcntId" />
       <input type="password" placeholder="Password" name="lgnAcntPswd" />
-      <a href="#">비밀번호를 잊어버리셨나요?</a>
-      <button>로그인</button>
+      <!-- <a href="#">비밀번호를 잊어버리셨나요?</a> -->
+      <button type="submit" id="tryLogin">로그인</button>
     </form>
   </div>
   <div class="overlay-container">
@@ -135,6 +144,20 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 });
+
+//로그인 오류메시지 alert
+var loginErrorMessage = '<c:out value="${loginErrorMessage}"/>'; 
+
+if (loginErrorMessage) {
+    alert(loginErrorMessage);
+}
+//id 중복시 alert
+var joinErrorMessage = '<c:out value="${joinErrorMessage}"/>'; 
+
+if (joinErrorMessage) {
+    alert(joinErrorMessage);
+}
+
 
 
 </script>

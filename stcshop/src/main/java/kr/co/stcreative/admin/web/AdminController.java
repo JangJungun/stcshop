@@ -79,4 +79,14 @@ public class AdminController {
 		return "admin/AdminUsrHst";
 	}
 	
+	/**
+	 * <p>접근거부 페이지로 이동한다.</p>
+	 * 
+	 * @return 접근거부 페이지의 view 이름을 문자열로 반환.
+	 */
+	@GetMapping("/authDenied.do")
+	public String deny() {
+		
+		return "cmm/authDenied";
+	}
 }

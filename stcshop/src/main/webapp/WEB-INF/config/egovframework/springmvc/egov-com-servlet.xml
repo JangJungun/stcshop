@@ -15,7 +15,7 @@
     </context:component-scan>
 
     <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정-->
-<!-- 
+<!--  
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="cmm/error/egovError"/>
         <property name="exceptionMappings">
@@ -27,8 +27,8 @@
             </props>
         </property>
     </bean>
- -->
-	
+
+ -->	
 	<!-- tiles -->
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 <!-- 	    <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" /> -->
@@ -66,6 +66,24 @@
 	</bean>
 
 	
+<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <mvc:exclude-mapping path="/mainPage.do"/>
+        <mvc:exclude-mapping path="/usrinfo/join.do"/>
+        <mvc:exclude-mapping path="/usrinfo/login.do"/>
+        <mvc:exclude-mapping path="/logout.do"/>
+        <mvc:exclude-mapping path="/WEB-INF/jsp/index.jsp"/>
+        <bean class="kr.co.stcreative.cmm.interceptor.LoginInterceptor"/>
+    </mvc:interceptor>
+    
+    <mvc:interceptor>
+        <mvc:mapping path="/admin.do"/>
+        <mvc:mapping path="/getUserHst.do"/>
+        <bean class="kr.co.stcreative.cmm.interceptor.RoleCheckInterceptor"/>
+    </mvc:interceptor>
+</mvc:interceptors>
+
 
 
     <!-- 로그인 체크가 필요한 URL과 로그인 여부를 체크해준다 -->
